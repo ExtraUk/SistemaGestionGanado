@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaGestionGanado.src.Back {
-    public class Categoria {
-        private String nombre;
-
-        public Categoria(String pNombre) {
-            this.nombre = pNombre;
-        }
-
-        public String getNombre() {
-            return this.nombre;
-        }
-
-        public void setNombre(String pNombre) {
-            this.nombre = pNombre;
-        }
+    public enum Categoria {
+        Ternero,
+        Ternera,
+        Vaquillona_1_2,
+        Vaquillona_2,
+        Novillo_1_2,
+        Novillo_2_3,
+        Novillo_3,
+        VacaInvernada,
+        VacaCut,
+        Toritos,
+        Toros,
+        TorosCria,
+        VaquillonasCria,
+        VacasCria
     }
 }

@@ -9,29 +9,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaGestionGanado.src.Back;
 using System.IO;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace SistemaGestionGanado {
     public partial class Main: Form {
         private List<Vaca> vacas;
+        private string connectionString = @"Server=localhost\SQLEXPRESS;Database=SistemaGestionGanado;User Id=SistemaGestionGanadoAdmin;Password=Ssga1234;";
         public Main() {
             InitializeComponent();
-            vacas = new List<Vaca>();
+            this.inicializarItemsCBOs();
 
+            vacas = new List<Vaca>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            MessageBox.Show("Connection Open  !");
+            connection.Close();
+            //TODO: cargar Vacas a la lista de la DB
+        }
+
+        private void inicializarItemsCBOs() {
             foreach(var estado in Enum.GetValues(typeof(Estado))) {
                 this.cboEstado.Items.Add(estado);
                 this.cboEstadoAuto.Items.Add(estado);
             }
-
-            //TODO: cargar Vacas a la lista de la DB
+            foreach(Categoria cat in Enum.GetValues(typeof(Categoria))) {
+                this.cboCat.Items.Add(cat);
+                this.cboCatAuto.Items.Add(cat);
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e) {
             String id = this.txtId.Text;
             float peso = float.Parse(this.txtPeso.Text);
             DateTime fecha = this.dateTimePicker1.Value;
-            Categoria cat = null;
+            Categoria cat = (Categoria)this.cboCat.SelectedIndex;
             String proc = this.txtProcedencia.Text;
-            Estado estado = (Estado)this.estado.Index;
+            Estado estado = (Estado)this.cboEstado.SelectedIndex;
             Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
             vacas.Add(vaca);
             actualizarGridView();
@@ -52,7 +66,10 @@ namespace SistemaGestionGanado {
         }
 
         private void btnSubir_Click(object sender, EventArgs e) {
-            if(txtCatAuto.Text != "" && txtProcedenciaAuto.Text != "" && cboEstadoAuto.SelectedIndex != -1) {
+            string procedencia = txtProcedenciaAuto.Text;
+            int categoriaSelectedIndex = cboCatAuto.SelectedIndex;
+            int estadoSelectedIndex = cboEstadoAuto.SelectedIndex;
+            if(procedencia != "" && categoriaSelectedIndex != -1 && estadoSelectedIndex != -1) {
                 using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
                     openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
                     if(openFileDialog.ShowDialog() == DialogResult.OK) {
@@ -62,10 +79,11 @@ namespace SistemaGestionGanado {
                         DialogResult result = MessageBox.Show("Se leyeron: " + vacasCSV.Count + " animales, ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if(result == DialogResult.Yes) {
                             foreach(Vaca vaca in vacasCSV) {
-                                //vaca.setCategoria(txtCatAuto);
-                                vaca.setProcedencia(txtProcedenciaAuto.Text);
-                                vaca.setEstado((Estado)cboEstadoAuto.SelectedIndex);
+                                vaca.setCategoria((Categoria)categoriaSelectedIndex);
+                                vaca.setProcedencia(procedencia);
+                                vaca.setEstado((Estado)estadoSelectedIndex);
                             }
+                            //TO-DO Subir las vacas a la DB
                         }
                     }
                 }

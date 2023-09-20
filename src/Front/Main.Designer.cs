@@ -33,7 +33,6 @@ namespace SistemaGestionGanado {
             this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtId = new System.Windows.Forms.TextBox();
             this.txtPeso = new System.Windows.Forms.TextBox();
-            this.txtCat = new System.Windows.Forms.TextBox();
             this.txtProcedencia = new System.Windows.Forms.TextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.lblId = new System.Windows.Forms.Label();
@@ -57,11 +56,12 @@ namespace SistemaGestionGanado {
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtProcedenciaAuto = new System.Windows.Forms.TextBox();
-            this.txtCatAuto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btnSubir = new System.Windows.Forms.Button();
             this.btnAgregarAuto = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.cboCatAuto = new System.Windows.Forms.ComboBox();
+            this.cboCat = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,23 +127,16 @@ namespace SistemaGestionGanado {
             this.txtPeso.Size = new System.Drawing.Size(100, 23);
             this.txtPeso.TabIndex = 4;
             // 
-            // txtCat
-            // 
-            this.txtCat.Location = new System.Drawing.Point(873, 234);
-            this.txtCat.Name = "txtCat";
-            this.txtCat.Size = new System.Drawing.Size(100, 23);
-            this.txtCat.TabIndex = 5;
-            // 
             // txtProcedencia
             // 
-            this.txtProcedencia.Location = new System.Drawing.Point(1085, 234);
+            this.txtProcedencia.Location = new System.Drawing.Point(1097, 234);
             this.txtProcedencia.Name = "txtProcedencia";
             this.txtProcedencia.Size = new System.Drawing.Size(100, 23);
             this.txtProcedencia.TabIndex = 7;
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(1216, 274);
+            this.btnAgregar.Location = new System.Drawing.Point(1238, 263);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 9;
@@ -181,7 +174,7 @@ namespace SistemaGestionGanado {
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(979, 213);
+            this.label3.Location = new System.Drawing.Point(991, 213);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 15);
             this.label3.TabIndex = 13;
@@ -190,7 +183,7 @@ namespace SistemaGestionGanado {
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1085, 213);
+            this.label4.Location = new System.Drawing.Point(1097, 213);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 15);
             this.label4.TabIndex = 14;
@@ -199,7 +192,7 @@ namespace SistemaGestionGanado {
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1191, 213);
+            this.label5.Location = new System.Drawing.Point(1203, 213);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 15);
             this.label5.TabIndex = 15;
@@ -218,7 +211,7 @@ namespace SistemaGestionGanado {
             // cboEstado
             // 
             this.cboEstado.FormattingEnabled = true;
-            this.cboEstado.Location = new System.Drawing.Point(1191, 234);
+            this.cboEstado.Location = new System.Drawing.Point(1203, 234);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(110, 23);
             this.cboEstado.TabIndex = 17;
@@ -299,7 +292,7 @@ namespace SistemaGestionGanado {
             // cboEstadoAuto
             // 
             this.cboEstadoAuto.FormattingEnabled = true;
-            this.cboEstadoAuto.Location = new System.Drawing.Point(873, 361);
+            this.cboEstadoAuto.Location = new System.Drawing.Point(883, 362);
             this.cboEstadoAuto.Name = "cboEstadoAuto";
             this.cboEstadoAuto.Size = new System.Drawing.Size(110, 23);
             this.cboEstadoAuto.TabIndex = 31;
@@ -307,7 +300,7 @@ namespace SistemaGestionGanado {
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(873, 340);
+            this.label8.Location = new System.Drawing.Point(883, 341);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(42, 15);
             this.label8.TabIndex = 30;
@@ -316,7 +309,7 @@ namespace SistemaGestionGanado {
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(767, 340);
+            this.label9.Location = new System.Drawing.Point(777, 341);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 15);
             this.label9.TabIndex = 29;
@@ -333,17 +326,10 @@ namespace SistemaGestionGanado {
             // 
             // txtProcedenciaAuto
             // 
-            this.txtProcedenciaAuto.Location = new System.Drawing.Point(767, 361);
+            this.txtProcedenciaAuto.Location = new System.Drawing.Point(777, 362);
             this.txtProcedenciaAuto.Name = "txtProcedenciaAuto";
             this.txtProcedenciaAuto.Size = new System.Drawing.Size(100, 23);
             this.txtProcedenciaAuto.TabIndex = 27;
-            // 
-            // txtCatAuto
-            // 
-            this.txtCatAuto.Location = new System.Drawing.Point(661, 361);
-            this.txtCatAuto.Name = "txtCatAuto";
-            this.txtCatAuto.Size = new System.Drawing.Size(100, 23);
-            this.txtCatAuto.TabIndex = 26;
             // 
             // label11
             // 
@@ -356,7 +342,7 @@ namespace SistemaGestionGanado {
             // btnSubir
             // 
             this.btnSubir.AutoSize = true;
-            this.btnSubir.Location = new System.Drawing.Point(989, 360);
+            this.btnSubir.Location = new System.Drawing.Point(999, 361);
             this.btnSubir.Name = "btnSubir";
             this.btnSubir.Size = new System.Drawing.Size(88, 25);
             this.btnSubir.TabIndex = 33;
@@ -367,7 +353,7 @@ namespace SistemaGestionGanado {
             // btnAgregarAuto
             // 
             this.btnAgregarAuto.AutoSize = true;
-            this.btnAgregarAuto.Location = new System.Drawing.Point(661, 390);
+            this.btnAgregarAuto.Location = new System.Drawing.Point(661, 391);
             this.btnAgregarAuto.Name = "btnAgregarAuto";
             this.btnAgregarAuto.Size = new System.Drawing.Size(88, 25);
             this.btnAgregarAuto.TabIndex = 34;
@@ -377,16 +363,34 @@ namespace SistemaGestionGanado {
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(977, 234);
+            this.dateTimePicker1.Location = new System.Drawing.Point(989, 234);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(100, 23);
             this.dateTimePicker1.TabIndex = 35;
+            // 
+            // cboCatAuto
+            // 
+            this.cboCatAuto.FormattingEnabled = true;
+            this.cboCatAuto.Location = new System.Drawing.Point(661, 362);
+            this.cboCatAuto.Name = "cboCatAuto";
+            this.cboCatAuto.Size = new System.Drawing.Size(110, 23);
+            this.cboCatAuto.TabIndex = 36;
+            // 
+            // cboCat
+            // 
+            this.cboCat.FormattingEnabled = true;
+            this.cboCat.Location = new System.Drawing.Point(873, 234);
+            this.cboCat.Name = "cboCat";
+            this.cboCat.Size = new System.Drawing.Size(110, 23);
+            this.cboCat.TabIndex = 37;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1343, 715);
+            this.Controls.Add(this.cboCat);
+            this.Controls.Add(this.cboCatAuto);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnAgregarAuto);
             this.Controls.Add(this.btnSubir);
@@ -396,7 +400,6 @@ namespace SistemaGestionGanado {
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtProcedenciaAuto);
-            this.Controls.Add(this.txtCatAuto);
             this.Controls.Add(this.lblAutomatico);
             this.Controls.Add(this.lblManual);
             this.Controls.Add(this.lblActualizacion);
@@ -415,7 +418,6 @@ namespace SistemaGestionGanado {
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.txtProcedencia);
-            this.Controls.Add(this.txtCat);
             this.Controls.Add(this.txtPeso);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.dataGridView1);
@@ -437,7 +439,6 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.DataGridViewTextBoxColumn estado;
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.TextBox txtPeso;
-        private System.Windows.Forms.TextBox txtCat;
         private System.Windows.Forms.TextBox txtProcedencia;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label lblId;
@@ -461,11 +462,12 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtProcedenciaAuto;
-        private System.Windows.Forms.TextBox txtCatAuto;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnSubir;
         private System.Windows.Forms.Button btnAgregarAuto;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.ComboBox cboCatAuto;
+        private System.Windows.Forms.ComboBox cboCat;
     }
 }
 
