@@ -58,7 +58,6 @@ namespace SistemaGestionGanado {
             this.txtProcedenciaAuto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btnSubir = new System.Windows.Forms.Button();
-            this.btnAgregarAuto = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cboCatAuto = new System.Windows.Forms.ComboBox();
             this.cboCat = new System.Windows.Forms.ComboBox();
@@ -350,16 +349,6 @@ namespace SistemaGestionGanado {
             this.btnSubir.UseVisualStyleBackColor = true;
             this.btnSubir.Click += new System.EventHandler(this.btnSubir_Click);
             // 
-            // btnAgregarAuto
-            // 
-            this.btnAgregarAuto.AutoSize = true;
-            this.btnAgregarAuto.Location = new System.Drawing.Point(661, 391);
-            this.btnAgregarAuto.Name = "btnAgregarAuto";
-            this.btnAgregarAuto.Size = new System.Drawing.Size(88, 25);
-            this.btnAgregarAuto.TabIndex = 34;
-            this.btnAgregarAuto.Text = "Agregar";
-            this.btnAgregarAuto.UseVisualStyleBackColor = true;
-            // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -392,7 +381,6 @@ namespace SistemaGestionGanado {
             this.Controls.Add(this.cboCat);
             this.Controls.Add(this.cboCatAuto);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.btnAgregarAuto);
             this.Controls.Add(this.btnSubir);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.cboEstadoAuto);
@@ -464,7 +452,6 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.TextBox txtProcedenciaAuto;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnSubir;
-        private System.Windows.Forms.Button btnAgregarAuto;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ComboBox cboCatAuto;
         private System.Windows.Forms.ComboBox cboCat;

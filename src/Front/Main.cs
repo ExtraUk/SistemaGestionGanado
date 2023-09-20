@@ -40,15 +40,24 @@ namespace SistemaGestionGanado {
         }
 
         private void btnAgregar_Click(object sender, EventArgs e) {
-            String id = this.txtId.Text;
-            float peso = float.Parse(this.txtPeso.Text);
-            DateTime fecha = this.dateTimePicker1.Value;
-            Categoria cat = (Categoria)this.cboCat.SelectedIndex;
-            String proc = this.txtProcedencia.Text;
-            Estado estado = (Estado)this.cboEstado.SelectedIndex;
-            Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
-            vacas.Add(vaca);
-            actualizarGridView();
+            try {
+                if(this.txtId.Text != "" && this.txtPeso.Text != "" && this.dateTimePicker1.Checked && this.cboCat.SelectedIndex != -1 && this.cboEstado.SelectedIndex != -1) {
+                    String id = this.txtId.Text;
+                    float peso = float.Parse(this.txtPeso.Text);
+                    DateTime fecha = this.dateTimePicker1.Value;
+                    Categoria cat = (Categoria)this.cboCat.SelectedIndex;
+                    String proc = this.txtProcedencia.Text;
+                    Estado estado = (Estado)this.cboEstado.SelectedIndex;
+                    Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
+                    persistirVaca(vaca);
+                }
+                else {
+                    MessageBox.Show("Rellene todos los datos para continuar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void actualizarGridView() {
@@ -75,15 +84,17 @@ namespace SistemaGestionGanado {
                     if(openFileDialog.ShowDialog() == DialogResult.OK) {
                         string filePath = openFileDialog.FileName;
                         List<Vaca> vacasCSV = vacasEnCsv(filePath);
+                        int cantidadRepetidas = eliminarRepetidas(ref vacasCSV);
+                        if(cantidadRepetidas == -1) return;
 
-                        DialogResult result = MessageBox.Show("Se leyeron: " + vacasCSV.Count + " animales, ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult result = MessageBox.Show("Se leyeron: " + (vacasCSV.Count+cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasCSV.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if(result == DialogResult.Yes) {
                             foreach(Vaca vaca in vacasCSV) {
                                 vaca.setCategoria((Categoria)categoriaSelectedIndex);
                                 vaca.setProcedencia(procedencia);
                                 vaca.setEstado((Estado)estadoSelectedIndex);
                             }
-                            //TO-DO Subir las vacas a la DB
+                            persistirVacas(vacasCSV);
                         }
                     }
                 }
@@ -132,6 +143,45 @@ namespace SistemaGestionGanado {
             }
             if(vaca.getId() != null) return vaca;
             return null;
+        }
+
+        private int eliminarRepetidas(ref List<Vaca> vacas) {
+            try {
+                Dictionary<string, bool> conjuntoVacas = new Dictionary<string, bool>();
+                int repetidas = 0;
+
+                List<Vaca> vacasIterador = new List<Vaca>(); //Lista para que no se rompa en el foreach
+                foreach(Vaca vaca in vacas) {
+                    vacasIterador.Add(vaca);
+                }
+
+                foreach(Vaca vaca in vacasIterador) {
+                    if(conjuntoVacas.ContainsKey(vaca.getId())) {
+                        vacas.Remove(vaca);
+                        repetidas++;
+                    }
+                    else {
+                        conjuntoVacas.Add(vaca.getId(), true);
+                    }
+                }
+                return repetidas;
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
+            }
+        }
+
+        private void persistirVaca(Vaca vaca) {
+            List<Vaca> listaVacas = new List<Vaca>();
+            listaVacas.Add(vaca);
+            persistirVacas(listaVacas);
+        }
+        private void persistirVacas(List<Vaca> listaVacas) {
+            foreach(Vaca vaca in listaVacas) {
+                this.vacas.Add(vaca);
+            }
+            this.actualizarGridView();
         }
     }
 }
