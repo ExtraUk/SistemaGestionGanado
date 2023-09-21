@@ -72,5 +72,22 @@ namespace SistemaGestionGanado.src.Back {
             return Persistencia.Vaca.Agregar(vaca);
         }
 
+        public static Vaca BuscarVacaPorId(string id, List<Vaca> vacas) {
+            Vaca retorno = null;
+            if(vacas != null) {
+                foreach(Vaca vaca in vacas) {
+                    if(vaca.getId().Equals(id)) {
+                        retorno = vaca;
+                        break;
+                    }
+                }
+            }
+            return retorno;
+        }
+
+        public static bool EliminarVacaPersistencia(Vaca vaca) {
+            return Persistencia.Vaca.Remover(vaca);
+        }
+
     }
 }

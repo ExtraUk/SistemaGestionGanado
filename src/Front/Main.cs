@@ -18,18 +18,20 @@ namespace SistemaGestionGanado {
         private string connectionString = @"Server=localhost\SQLEXPRESS;Database=SistemaGestionGanado;User Id=SistemaGestionGanadoAdmin;Password=Ssga1234;";
         public Main() {
             InitializeComponent();
-            this.inicializarItemsCBOs();
+            this.inicializarEstadosCategorias();
             actualizarGridView();
         }
 
-        private void inicializarItemsCBOs() {
+        private void inicializarEstadosCategorias() {
             foreach(var estado in Enum.GetValues(typeof(Estado))) {
                 this.cboEstado.Items.Add(estado);
                 this.cboEstadoAuto.Items.Add(estado);
+                this.lstBoxEstado.Items.Add(estado);
             }
             foreach(Categoria cat in Enum.GetValues(typeof(Categoria))) {
                 this.cboCat.Items.Add(cat);
                 this.cboCatAuto.Items.Add(cat);
+                this.lstBoxCat.Items.Add(cat);
             }
         }
 
@@ -40,7 +42,7 @@ namespace SistemaGestionGanado {
                 switch(estado) {
                     case Estado.Viva:
                         if(this.txtId.Text != "" && this.txtPeso.Text != "" && this.dateTimePicker1.Checked && this.cboCat.SelectedIndex != -1) {
-                            String id = this.txtId.Text;
+                            String id = this.txtId.Text.Trim();
                             float peso = float.Parse(this.txtPeso.Text);
                             DateTime fecha = this.dateTimePicker1.Value;
                             Categoria cat = (Categoria)this.cboCat.SelectedIndex;
@@ -78,14 +80,16 @@ namespace SistemaGestionGanado {
             vacas = src.Persistencia.Vaca.TraerTodas();
             this.dataGridView1.Rows.Clear();
             foreach(Vaca vaca in vacas) {
-                DataGridViewRow row = new DataGridViewRow();
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getId() }) ;
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getPesoActual() });
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getCategoria() });
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getUltimaVezPesada() });
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getProcedencia() });
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getEstado() });
-                this.dataGridView1.Rows.Add(row);
+                if(cumpleFiltrosVaca(vaca)) {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getId() });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getPesoActual() });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getCategoria() });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getUltimaVezPesada() });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getProcedencia() });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getEstado() });
+                    this.dataGridView1.Rows.Add(row);
+                }
             }
         }
 
@@ -220,6 +224,87 @@ namespace SistemaGestionGanado {
                 txtProcedenciaAuto.Enabled = true;
                 cboCatAuto.Enabled = true;
             }
+        }
+
+        private bool cumpleFiltrosVaca(Vaca vaca) {
+            bool retorno = true;
+            string id = txtIdFiltros.Text;
+            if(id != "") {
+                retorno = retorno && vaca.getId().Contains(id);
+            }
+            string proc = txtProcedenciaFiltros.Text;
+            if(proc != "") {
+                retorno = retorno && vaca.getProcedencia().Contains(proc);
+            }
+            if(txtPesoDesdeFiltros.Text != "") {
+                float pesoDesde = float.Parse(txtPesoDesdeFiltros.Text);
+                retorno = retorno && (vaca.getPesoActual() >= pesoDesde);
+            }
+            if(txtPesoHastaFiltros.Text != "") {
+                float pesoHasta = float.Parse(txtPesoHastaFiltros.Text);
+                retorno = retorno && (vaca.getPesoActual() <= pesoHasta);
+            }
+            if(datePickerDesdeFiltros.Checked) {
+                DateTime desde = datePickerDesdeFiltros.Value;
+                retorno = retorno && (vaca.getUltimaVezPesada().CompareTo(desde) >= 0);
+            }
+            if(datePickerHastaFiltros.Checked) {
+                DateTime hasta = datePickerHastaFiltros.Value;
+                retorno = retorno && (vaca.getUltimaVezPesada().CompareTo(hasta) <= 0);
+            }
+            if(lstBoxCat.CheckedItems.Count > 0) {
+                bool flag = false;
+                for(int i=0; i<lstBoxCat.CheckedItems.Count; i++) {
+                    flag = flag || vaca.getCategoria().ToString().Equals(lstBoxCat.CheckedItems[i].ToString());
+                }
+                retorno = retorno && flag;
+            }
+            if(lstBoxEstado.CheckedItems.Count > 0) {
+                bool flag = false;
+                for(int i = 0; i < lstBoxEstado.CheckedItems.Count; i++) {
+                    flag = flag || vaca.getEstado().ToString().Equals(lstBoxEstado.CheckedItems[i].ToString());
+                }
+                retorno = retorno && flag;
+            }
+            return retorno;
+        }
+
+        private void txtIdFiltros_TextChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void txtPesoDesdeFiltros_TextChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void txtPesoHastaFiltros_TextChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void txtProcedenciaFiltros_TextChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void datePickerDesdeFiltros_ValueChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void datePickerHastaFiltros_ValueChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void lstBoxCat_SelectedValueChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+        private void lstBoxEstado_SelectedValueChanged(object sender, EventArgs e) {
+            actualizarGridView();
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            if(dataGridView1.SelectedRows.Count > 0) {
+                foreach(DataGridViewRow row in dataGridView1.SelectedRows) {
+                    Vaca vaca = Vaca.BuscarVacaPorId(row.Cells[0].Value.ToString(), this.vacas);
+                    if(vaca != null) {
+                        this.vacas.Remove(vaca);
+                        Vaca.EliminarVacaPersistencia(vaca);
+                    }
+                }
+            }
+            actualizarGridView();
         }
     }
 }

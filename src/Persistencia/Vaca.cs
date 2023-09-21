@@ -40,6 +40,32 @@ namespace SistemaGestionGanado.src.Persistencia {
             return retorno;
         }
 
+        public static bool Remover(Back.Vaca vaca) {
+            bool retorno = true;
+            try {
+                var conn = new SqlConnection(Persistencia.CadenaDeConexion);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("VacaRemover", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@idVaca", vaca.getId()));
+
+                int rtn = cmd.ExecuteNonQuery();
+
+                if(rtn <= 0) {
+                    retorno = false;
+                }
+
+                if(conn.State == ConnectionState.Open) {
+                    conn.Close();
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                retorno = false;
+            }
+            return retorno;
+        }
+
         public static List<Back.Vaca> TraerTodas() {
             List<Back.Vaca> retorno = new List<Back.Vaca>();
             Back.Vaca vaca;
