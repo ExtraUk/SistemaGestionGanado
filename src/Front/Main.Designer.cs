@@ -85,6 +85,9 @@ namespace SistemaGestionGanado {
             this.lstBoxEstado = new System.Windows.Forms.CheckedListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -608,11 +611,46 @@ namespace SistemaGestionGanado {
             this.label13.Size = new System.Drawing.Size(650, 2);
             this.label13.TabIndex = 71;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.Location = new System.Drawing.Point(663, 437);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 21);
+            this.label14.TabIndex = 72;
+            this.label14.Text = "Exportar";
+            // 
+            // button3
+            // 
+            this.button3.AutoSize = true;
+            this.button3.Location = new System.Drawing.Point(668, 492);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(105, 25);
+            this.button3.TabIndex = 73;
+            this.button3.Text = "Exportar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label27.Location = new System.Drawing.Point(665, 470);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(149, 19);
+            this.label27.TabIndex = 74;
+            this.label27.Text = "Exportar Vista Actual";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1343, 898);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lstBoxEstado);
@@ -738,6 +776,9 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.CheckedListBox lstBoxEstado;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label27;
     }
 }
 
