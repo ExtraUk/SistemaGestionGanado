@@ -214,6 +214,7 @@ namespace SistemaGestionGanado {
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(110, 23);
             this.cboEstado.TabIndex = 17;
+            this.cboEstado.SelectedIndexChanged += new System.EventHandler(this.cboEstado_SelectedIndexChanged);
             // 
             // textBox1
             // 
@@ -295,6 +296,7 @@ namespace SistemaGestionGanado {
             this.cboEstadoAuto.Name = "cboEstadoAuto";
             this.cboEstadoAuto.Size = new System.Drawing.Size(110, 23);
             this.cboEstadoAuto.TabIndex = 31;
+            this.cboEstadoAuto.SelectedIndexChanged += new System.EventHandler(this.cboEstadoAuto_SelectedIndexChanged);
             // 
             // label8
             // 

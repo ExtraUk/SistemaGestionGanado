@@ -19,12 +19,7 @@ namespace SistemaGestionGanado {
         public Main() {
             InitializeComponent();
             this.inicializarItemsCBOs();
-
             vacas = new List<Vaca>();
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            MessageBox.Show("Connection Open  !");
-            connection.Close();
             //TODO: cargar Vacas a la lista de la DB
         }
 
@@ -41,19 +36,37 @@ namespace SistemaGestionGanado {
 
         private void btnAgregar_Click(object sender, EventArgs e) {
             try {
-                if(this.txtId.Text != "" && this.txtPeso.Text != "" && this.dateTimePicker1.Checked && this.cboCat.SelectedIndex != -1 && this.cboEstado.SelectedIndex != -1) {
-                    String id = this.txtId.Text;
-                    float peso = float.Parse(this.txtPeso.Text);
-                    DateTime fecha = this.dateTimePicker1.Value;
-                    Categoria cat = (Categoria)this.cboCat.SelectedIndex;
-                    String proc = this.txtProcedencia.Text;
-                    Estado estado = (Estado)this.cboEstado.SelectedIndex;
-                    Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
-                    persistirVaca(vaca);
+                Estado estado = (Estado)this.cboEstado.SelectedIndex;
+                bool flag = false;
+                switch(estado) {
+                    case Estado.Viva:
+                        if(this.txtId.Text != "" && this.txtPeso.Text != "" && this.dateTimePicker1.Checked && this.cboCat.SelectedIndex != -1) {
+                            String id = this.txtId.Text;
+                            float peso = float.Parse(this.txtPeso.Text);
+                            DateTime fecha = this.dateTimePicker1.Value;
+                            Categoria cat = (Categoria)this.cboCat.SelectedIndex;
+                            String proc = this.txtProcedencia.Text;
+                            Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
+                            persistirVaca(vaca);
+                        }
+                        else flag = true;
+                        break;
+                    case Estado.Muerta: case Estado.Vendida:
+                        if(this.txtId.Text != "" && this.dateTimePicker1.Checked) {
+                            String id = this.txtId.Text;
+                            DateTime fecha = this.dateTimePicker1.Value;
+                            Vaca vaca = new Vaca(id);
+                            vaca.setEstado(estado);
+                            vaca.setUltimaVezPesada(fecha);
+                            persistirVaca(vaca); //Cambiar esto a matar o vender
+                        }
+                        else flag = true;
+                        break;
+                    default:
+                        flag = true;
+                        break;
                 }
-                else {
-                    MessageBox.Show("Rellene todos los datos para continuar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                if(flag) MessageBox.Show("Rellene todos los datos para continuar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch(Exception ex) {
                 MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -173,15 +186,38 @@ namespace SistemaGestionGanado {
         }
 
         private void persistirVaca(Vaca vaca) {
-            List<Vaca> listaVacas = new List<Vaca>();
-            listaVacas.Add(vaca);
-            persistirVacas(listaVacas);
+            Vaca.PersistirVaca(vaca);
+            this.vacas.Add(vaca);
+            this.actualizarGridView();
         }
         private void persistirVacas(List<Vaca> listaVacas) {
             foreach(Vaca vaca in listaVacas) {
-                this.vacas.Add(vaca);
+                persistirVaca(vaca);
             }
-            this.actualizarGridView();
+        }
+
+        private void cboEstado_SelectedIndexChanged(object sender, EventArgs e) {
+            if((Estado)cboEstado.SelectedIndex == Estado.Muerta || (Estado)cboEstado.SelectedIndex == Estado.Vendida) {
+                txtPeso.Enabled = false;
+                txtProcedencia.Enabled = false;
+                cboCat.Enabled = false;
+            }
+            else {
+                txtPeso.Enabled = true;
+                txtProcedencia.Enabled = true;
+                cboCat.Enabled = true;
+            }
+        }
+
+        private void cboEstadoAuto_SelectedIndexChanged(object sender, EventArgs e) {
+            if((Estado)cboEstadoAuto.SelectedIndex == Estado.Muerta || (Estado)cboEstadoAuto.SelectedIndex == Estado.Vendida) {
+                txtProcedenciaAuto.Enabled = false;
+                cboCatAuto.Enabled = false;
+            }
+            else {
+                txtProcedenciaAuto.Enabled = true;
+                cboCatAuto.Enabled = true;
+            }
         }
     }
 }

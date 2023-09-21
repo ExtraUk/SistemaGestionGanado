@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionGanado.src.Back {
     public class Vaca {
-        private String id;
+        private string id;
         private float pesoActual;
         private DateTime ultimaVezPesada;
         private Categoria categoria;
-        private String procedencia;
+        private string procedencia;
         private Estado estado;
         private List<DateTime> fechasPesada;
         private List<float> pesos;
-        private List<String> procedencias;
+        private List<string> procedencias;
         private List<Estado> estados;
 
-        public Vaca(String id, float peso, DateTime fecha, Categoria cat, String proc, Estado estado) {
+        public Vaca(string id, float peso, DateTime fecha, Categoria cat, string proc, Estado estado) {
             this.id = id;
             this.pesoActual = peso;
             this.ultimaVezPesada = fecha;
@@ -28,7 +28,7 @@ namespace SistemaGestionGanado.src.Back {
             this.fechasPesada.Add(fecha);
             this.pesos = new List<float>();
             this.pesos.Add(peso);
-            this.procedencias = new List<String>();
+            this.procedencias = new List<string>();
             this.procedencias.Add(proc);
             this.estado = estado;
             this.estados = new List<Estado>();
@@ -43,35 +43,33 @@ namespace SistemaGestionGanado.src.Back {
             this.id = id;
         }
 
-        public String getId() { return this.id; }
+        public string getId() { return this.id; }
         public float getPesoActual() { return this.pesoActual; }
         public DateTime getUltimaVezPesada() { return this.ultimaVezPesada; }
         public Categoria getCategoria() { return this.categoria; }
-        public String getProcedencia() { return this.procedencia; }
+        public string getProcedencia() { return this.procedencia; }
         public Estado getEstado() { return this.estado; }
-
         public void setId(string id) {
             this.id = id;
         }
-
         public void setPesoActual(float pesoActual) {
             this.pesoActual = pesoActual;
         }
-
         public void setUltimaVezPesada(DateTime ultimaVezPesada) {
             this.ultimaVezPesada = ultimaVezPesada;
         }
-
         public void setCategoria(Categoria categoria) {
             this.categoria = categoria;
         }
-
         public void setProcedencia(string procedencia) {
             this.procedencia = procedencia;
         }
-
         public void setEstado(Estado estado) {
             this.estado = estado;
+        }
+
+        public static bool PersistirVaca(Vaca vaca) {
+            return Persistencia.Vaca.Agregar(vaca);
         }
 
     }
