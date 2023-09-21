@@ -19,8 +19,7 @@ namespace SistemaGestionGanado {
         public Main() {
             InitializeComponent();
             this.inicializarItemsCBOs();
-            vacas = new List<Vaca>();
-            //TODO: cargar Vacas a la lista de la DB
+            actualizarGridView();
         }
 
         private void inicializarItemsCBOs() {
@@ -48,6 +47,7 @@ namespace SistemaGestionGanado {
                             String proc = this.txtProcedencia.Text;
                             Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
                             persistirVaca(vaca);
+                            this.actualizarGridView();
                         }
                         else flag = true;
                         break;
@@ -59,6 +59,7 @@ namespace SistemaGestionGanado {
                             vaca.setEstado(estado);
                             vaca.setUltimaVezPesada(fecha);
                             persistirVaca(vaca); //Cambiar esto a matar o vender
+                            this.actualizarGridView();
                         }
                         else flag = true;
                         break;
@@ -74,6 +75,7 @@ namespace SistemaGestionGanado {
         }
 
         private void actualizarGridView() {
+            vacas = src.Persistencia.Vaca.TraerTodas();
             this.dataGridView1.Rows.Clear();
             foreach(Vaca vaca in vacas) {
                 DataGridViewRow row = new DataGridViewRow();
@@ -108,6 +110,7 @@ namespace SistemaGestionGanado {
                                 vaca.setEstado((Estado)estadoSelectedIndex);
                             }
                             persistirVacas(vacasCSV);
+                            this.actualizarGridView();
                         }
                     }
                 }
@@ -158,6 +161,7 @@ namespace SistemaGestionGanado {
             return null;
         }
 
+        //Elimina repetidas y retorna la cantidad de repetidas que elimino
         private int eliminarRepetidas(ref List<Vaca> vacas) {
             try {
                 Dictionary<string, bool> conjuntoVacas = new Dictionary<string, bool>();
@@ -187,8 +191,6 @@ namespace SistemaGestionGanado {
 
         private void persistirVaca(Vaca vaca) {
             Vaca.PersistirVaca(vaca);
-            this.vacas.Add(vaca);
-            this.actualizarGridView();
         }
         private void persistirVacas(List<Vaca> listaVacas) {
             foreach(Vaca vaca in listaVacas) {

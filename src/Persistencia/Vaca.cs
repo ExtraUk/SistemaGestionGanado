@@ -11,7 +11,6 @@ namespace SistemaGestionGanado.src.Persistencia {
     class Vaca {
         public static bool Agregar(Back.Vaca vaca) {
             bool retorno = true;
-
             try {
                 var conn = new SqlConnection(Persistencia.CadenaDeConexion);
                 conn.Open();
@@ -33,6 +32,44 @@ namespace SistemaGestionGanado.src.Persistencia {
                 if(conn.State == ConnectionState.Open) {
                     conn.Close();
                 }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                retorno = false;
+            }
+            return retorno;
+        }
+
+        public static List<Back.Vaca> TraerTodas() {
+            List<Back.Vaca> retorno = new List<Back.Vaca>();
+            Back.Vaca vaca;
+
+            try {
+                var conn = new SqlConnection(Persistencia.CadenaDeConexion);
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("VacaTraerTodas", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                using(SqlDataReader oReader = cmd.ExecuteReader()) {
+                    Dictionary<string, bool> conjuntoVacas = new Dictionary<string, bool>();
+                    while(oReader.Read()) {
+                        string id = oReader["idVaca"].ToString();
+                        if(!conjuntoVacas.ContainsKey(id)) {
+                            conjuntoVacas.Add(id, true);
+                            vaca = new Back.Vaca();
+                            vaca.setId(id);
+                            vaca.setEstado((Back.Estado)Enum.Parse(typeof(Back.Estado), oReader["estado"].ToString()));
+                            vaca.setCategoria((Back.Categoria)Enum.Parse(typeof(Back.Categoria), oReader["nombreCategoria"].ToString()));
+                            vaca.setProcedencia(oReader["nombreProcedencia"].ToString());
+                            vaca.setUltimaVezPesada(DateTime.Parse(oReader["fechaPesada"].ToString()));
+                            vaca.setPesoActual(float.Parse(oReader["pesoVaca"].ToString()));
+                            retorno.Add(vaca);
+                        }
+                    }
+
+                    conn.Close();
+                }
+
             }
             catch(Exception ex) {
                 MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
