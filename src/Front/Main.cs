@@ -15,11 +15,25 @@ using System.Configuration;
 namespace SistemaGestionGanado {
     public partial class Main: Form {
         private List<Vaca> vacas;
-        private string connectionString = @"Server=localhost\SQLEXPRESS;Database=SistemaGestionGanado;User Id=SistemaGestionGanadoAdmin;Password=Ssga1234;";
+        private Dictionary<string, Vaca> dictVacas = new Dictionary<string, Vaca>();
         public Main() {
             InitializeComponent();
             this.inicializarEstadosCategorias();
-            actualizarGridView();
+            actualizarGridView(true);
+        }
+
+        private void actualizarDiccionario() {
+            if(vacas.Count == 0) return;
+            foreach(Vaca vaca in vacas) {
+                if(vaca.getId() != null) {
+                    if(dictVacas.ContainsKey(vaca.getId())) {
+                        dictVacas[vaca.getId()] = vaca;
+                    }
+                    else {
+                        dictVacas.Add(vaca.getId(), vaca);
+                    }
+                }
+            }
         }
 
         private void inicializarEstadosCategorias() {
@@ -49,7 +63,7 @@ namespace SistemaGestionGanado {
                             String proc = this.txtProcedencia.Text;
                             Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
                             persistirVaca(vaca);
-                            this.actualizarGridView();
+                            this.actualizarGridView(true);
                         }
                         else flag = true;
                         break;
@@ -60,8 +74,10 @@ namespace SistemaGestionGanado {
                             Vaca vaca = new Vaca(id);
                             vaca.setEstado(estado);
                             vaca.setUltimaVezPesada(fecha);
-                            persistirVaca(vaca); //Cambiar esto a matar o vender
-                            this.actualizarGridView();
+                            vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
+                            vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
+                            matarVenderVaca(vaca);
+                            this.actualizarGridView(true);
                         }
                         else flag = true;
                         break;
@@ -76,8 +92,11 @@ namespace SistemaGestionGanado {
             }
         }
 
-        private void actualizarGridView() {
-            vacas = src.Persistencia.Vaca.TraerTodas();
+        private void actualizarGridView(bool refreshDB) {
+            if(refreshDB) {
+                vacas = src.Persistencia.Vaca.TraerTodas();
+                actualizarDiccionario();
+            }
             this.dataGridView1.Rows.Clear();
             foreach(Vaca vaca in vacas) {
                 if(cumpleFiltrosVaca(vaca)) {
@@ -98,23 +117,34 @@ namespace SistemaGestionGanado {
             int categoriaSelectedIndex = cboCatAuto.SelectedIndex;
             int estadoSelectedIndex = cboEstadoAuto.SelectedIndex;
             if(procedencia != "" && categoriaSelectedIndex != -1 && estadoSelectedIndex != -1) {
+                bool muertaVendida = (Estado)estadoSelectedIndex == Estado.Muerta || (Estado)estadoSelectedIndex == Estado.Vendida;
                 using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
                     openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
                     if(openFileDialog.ShowDialog() == DialogResult.OK) {
                         string filePath = openFileDialog.FileName;
-                        List<Vaca> vacasCSV = vacasEnCsv(filePath);
+                        List<Vaca> vacasCSV = vacasEnCsv(filePath, muertaVendida);
                         int cantidadRepetidas = eliminarRepetidas(ref vacasCSV);
                         if(cantidadRepetidas == -1) return;
 
                         DialogResult result = MessageBox.Show("Se leyeron: " + (vacasCSV.Count+cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasCSV.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if(result == DialogResult.Yes) {
-                            foreach(Vaca vaca in vacasCSV) {
-                                vaca.setCategoria((Categoria)categoriaSelectedIndex);
-                                vaca.setProcedencia(procedencia);
-                                vaca.setEstado((Estado)estadoSelectedIndex);
+                            if(!muertaVendida) {
+                                foreach(Vaca vaca in vacasCSV) {
+                                    vaca.setCategoria((Categoria)categoriaSelectedIndex);
+                                    vaca.setProcedencia(procedencia);
+                                    vaca.setEstado((Estado)estadoSelectedIndex);
+                                }
+                                persistirVacas(vacasCSV);
                             }
-                            persistirVacas(vacasCSV);
-                            this.actualizarGridView();
+                            else {
+                                foreach(Vaca vaca in vacasCSV) {
+                                    vaca.setEstado((Estado)estadoSelectedIndex);
+                                    vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
+                                    vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
+                                    matarVenderVaca(vaca);
+                                }
+                            }
+                            this.actualizarGridView(true);
                         }
                     }
                 }
@@ -124,7 +154,7 @@ namespace SistemaGestionGanado {
             }
         }
 
-        private List<Vaca> vacasEnCsv(string filePath) {
+        private List<Vaca> vacasEnCsv(string filePath, bool matarVender) {
             try {
                 List<Vaca> vacasCSV = new List<Vaca>();
                 using(StreamReader reader = new StreamReader(filePath)) {
@@ -132,7 +162,7 @@ namespace SistemaGestionGanado {
                         string line = reader.ReadLine();
                         string[] values = line.Split(';');
 
-                        Vaca vaca = leerLinea(values);
+                        Vaca vaca = leerLinea(values, matarVender);
                         if(vaca != null) {
                             vacasCSV.Add(vaca);
                         }
@@ -146,19 +176,33 @@ namespace SistemaGestionGanado {
             }
         }
 
-        private Vaca leerLinea(string[] values) {
+        private Vaca leerLinea(string[] values, bool matarVender) {
             Vaca vaca = new Vaca(null);
-            for(int i=0; i<values.Length; i++) {
-                switch(i) {
-                    case 0:
-                        vaca.setId(values[0]);
-                        break;
-                    case 1:
-                        vaca.setPesoActual(float.Parse(values[1]));
-                        break;
-                    case 2:
-                        vaca.setUltimaVezPesada(DateTime.Parse(values[2]));
-                        break;
+            if(matarVender) {
+                for(int i = 0; i < values.Length; i++) {
+                    switch(i) {
+                        case 0:
+                            vaca.setId(values[0]);
+                            break;
+                        case 1:
+                            vaca.setUltimaVezPesada(DateTime.Parse(values[1]));
+                            break;
+                    }
+                }
+            }
+            else {
+                for(int i = 0; i < values.Length; i++) {
+                    switch(i) {
+                        case 0:
+                            vaca.setId(values[0]);
+                            break;
+                        case 1:
+                            vaca.setPesoActual(float.Parse(values[1]));
+                            break;
+                        case 2:
+                            vaca.setUltimaVezPesada(DateTime.Parse(values[2]));
+                            break;
+                    }
                 }
             }
             if(vaca.getId() != null) return vaca;
@@ -193,13 +237,16 @@ namespace SistemaGestionGanado {
             }
         }
 
-        private void persistirVaca(Vaca vaca) {
+        private static void persistirVaca(Vaca vaca) {
             Vaca.PersistirVaca(vaca);
         }
-        private void persistirVacas(List<Vaca> listaVacas) {
+        private static void persistirVacas(List<Vaca> listaVacas) {
             foreach(Vaca vaca in listaVacas) {
                 persistirVaca(vaca);
             }
+        }
+        private static void matarVenderVaca(Vaca vaca) {
+            Vaca.MatarVenderVacaPersistencia(vaca);
         }
 
         private void cboEstado_SelectedIndexChanged(object sender, EventArgs e) {
@@ -269,30 +316,7 @@ namespace SistemaGestionGanado {
             return retorno;
         }
 
-        private void txtIdFiltros_TextChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void txtPesoDesdeFiltros_TextChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void txtPesoHastaFiltros_TextChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void txtProcedenciaFiltros_TextChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void datePickerDesdeFiltros_ValueChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void datePickerHastaFiltros_ValueChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void lstBoxCat_SelectedValueChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
-        private void lstBoxEstado_SelectedValueChanged(object sender, EventArgs e) {
-            actualizarGridView();
-        }
+        
 
         private void button1_Click(object sender, EventArgs e) {
             if(dataGridView1.SelectedRows.Count > 0) {
@@ -304,7 +328,11 @@ namespace SistemaGestionGanado {
                     }
                 }
             }
-            actualizarGridView();
+            actualizarGridView(true);
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            actualizarGridView(false);
         }
     }
 }

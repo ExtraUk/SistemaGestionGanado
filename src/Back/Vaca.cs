@@ -89,5 +89,9 @@ namespace SistemaGestionGanado.src.Back {
             return Persistencia.Vaca.Remover(vaca);
         }
 
+        public static bool MatarVenderVacaPersistencia(Vaca vaca) {
+            return Persistencia.Vaca.MatarVender(vaca);
+        }
+
     }
 }
