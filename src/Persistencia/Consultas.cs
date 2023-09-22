@@ -11,6 +11,7 @@ namespace SistemaGestionGanado.src.Persistencia {
     class Consultas {
         public static List<Back.Vaca> GanadoDesaparecido(DateTime fecha1, DateTime fecha2, DateTime fecha3, DateTime fecha4, string procedencia, List<Back.Categoria> categorias) {
             List<Back.Vaca> retorno = new List<Back.Vaca>();
+            Back.Vaca vaca;
             try {
                 var conn = new SqlConnection(Persistencia.CadenaDeConexion);
                 conn.Open();
