@@ -88,6 +88,32 @@ namespace SistemaGestionGanado {
             this.label14 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.datePickerSegPes1 = new System.Windows.Forms.DateTimePicker();
+            this.label32 = new System.Windows.Forms.Label();
+            this.datePickerPrimerPes1 = new System.Windows.Forms.DateTimePicker();
+            this.lstBoxCatGanadoDesaparecido = new System.Windows.Forms.CheckedListBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.txtProcedenciaGanadoDesaparecido = new System.Windows.Forms.TextBox();
+            this.btnExportaGanadoDesaparecido = new System.Windows.Forms.Button();
+            this.datePickerPrimerPes2 = new System.Windows.Forms.DateTimePicker();
+            this.datePickerSegPes2 = new System.Windows.Forms.DateTimePicker();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.datePickerSegPes2GG = new System.Windows.Forms.DateTimePicker();
+            this.datePickerPrimerPes2GG = new System.Windows.Forms.DateTimePicker();
+            this.btnExportarGG = new System.Windows.Forms.Button();
+            this.label36 = new System.Windows.Forms.Label();
+            this.txtProcedenciaGG = new System.Windows.Forms.TextBox();
+            this.lstBoxCatGG = new System.Windows.Forms.CheckedListBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.datePickerSegPes1GG = new System.Windows.Forms.DateTimePicker();
+            this.label38 = new System.Windows.Forms.Label();
+            this.datePickerPrimerPes1GG = new System.Windows.Forms.DateTimePicker();
+            this.label39 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,6 +131,7 @@ namespace SistemaGestionGanado {
             this.estado});
             this.dataGridView1.Location = new System.Drawing.Point(12, 61);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(643, 513);
             this.dataGridView1.TabIndex = 0;
@@ -113,31 +140,37 @@ namespace SistemaGestionGanado {
             // 
             this.id.HeaderText = "Id";
             this.id.Name = "id";
+            this.id.ReadOnly = true;
             // 
             // peso
             // 
             this.peso.HeaderText = "Peso";
             this.peso.Name = "peso";
+            this.peso.ReadOnly = true;
             // 
             // categoria
             // 
             this.categoria.HeaderText = "Categoria";
             this.categoria.Name = "categoria";
+            this.categoria.ReadOnly = true;
             // 
             // fecha
             // 
             this.fecha.HeaderText = "Fecha";
             this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
             // 
             // procedencia
             // 
             this.procedencia.HeaderText = "Procedencia";
             this.procedencia.Name = "procedencia";
+            this.procedencia.ReadOnly = true;
             // 
             // estado
             // 
             this.estado.HeaderText = "Estado";
             this.estado.Name = "estado";
+            this.estado.ReadOnly = true;
             // 
             // txtId
             // 
@@ -245,14 +278,14 @@ namespace SistemaGestionGanado {
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(717, 385);
+            this.textBox1.Location = new System.Drawing.Point(715, 444);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 23);
             this.textBox1.TabIndex = 18;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(903, 385);
+            this.textBox2.Location = new System.Drawing.Point(901, 444);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 23);
             this.textBox2.TabIndex = 19;
@@ -262,7 +295,7 @@ namespace SistemaGestionGanado {
             this.lblReidentificacion.AutoSize = true;
             this.lblReidentificacion.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.lblReidentificacion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblReidentificacion.Location = new System.Drawing.Point(665, 355);
+            this.lblReidentificacion.Location = new System.Drawing.Point(663, 414);
             this.lblReidentificacion.Name = "lblReidentificacion";
             this.lblReidentificacion.Size = new System.Drawing.Size(135, 21);
             this.lblReidentificacion.TabIndex = 20;
@@ -271,7 +304,7 @@ namespace SistemaGestionGanado {
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(665, 388);
+            this.label6.Location = new System.Drawing.Point(663, 447);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 15);
             this.label6.TabIndex = 21;
@@ -280,7 +313,7 @@ namespace SistemaGestionGanado {
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(842, 388);
+            this.label7.Location = new System.Drawing.Point(840, 447);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 15);
             this.label7.TabIndex = 22;
@@ -310,7 +343,7 @@ namespace SistemaGestionGanado {
             // 
             this.lblAutomatico.AutoSize = true;
             this.lblAutomatico.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.lblAutomatico.Location = new System.Drawing.Point(663, 241);
+            this.lblAutomatico.Location = new System.Drawing.Point(663, 224);
             this.lblAutomatico.Name = "lblAutomatico";
             this.lblAutomatico.Size = new System.Drawing.Size(87, 19);
             this.lblAutomatico.TabIndex = 25;
@@ -319,7 +352,7 @@ namespace SistemaGestionGanado {
             // cboEstadoAuto
             // 
             this.cboEstadoAuto.FormattingEnabled = true;
-            this.cboEstadoAuto.Location = new System.Drawing.Point(885, 295);
+            this.cboEstadoAuto.Location = new System.Drawing.Point(885, 278);
             this.cboEstadoAuto.Name = "cboEstadoAuto";
             this.cboEstadoAuto.Size = new System.Drawing.Size(110, 23);
             this.cboEstadoAuto.TabIndex = 31;
@@ -328,7 +361,7 @@ namespace SistemaGestionGanado {
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(885, 274);
+            this.label8.Location = new System.Drawing.Point(885, 257);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(42, 15);
             this.label8.TabIndex = 30;
@@ -337,7 +370,7 @@ namespace SistemaGestionGanado {
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(779, 274);
+            this.label9.Location = new System.Drawing.Point(779, 257);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 15);
             this.label9.TabIndex = 29;
@@ -346,7 +379,7 @@ namespace SistemaGestionGanado {
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(663, 273);
+            this.label10.Location = new System.Drawing.Point(663, 256);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(58, 15);
             this.label10.TabIndex = 28;
@@ -354,7 +387,7 @@ namespace SistemaGestionGanado {
             // 
             // txtProcedenciaAuto
             // 
-            this.txtProcedenciaAuto.Location = new System.Drawing.Point(779, 295);
+            this.txtProcedenciaAuto.Location = new System.Drawing.Point(779, 278);
             this.txtProcedenciaAuto.Name = "txtProcedenciaAuto";
             this.txtProcedenciaAuto.Size = new System.Drawing.Size(100, 23);
             this.txtProcedenciaAuto.TabIndex = 27;
@@ -370,7 +403,7 @@ namespace SistemaGestionGanado {
             // btnSubir
             // 
             this.btnSubir.AutoSize = true;
-            this.btnSubir.Location = new System.Drawing.Point(1001, 294);
+            this.btnSubir.Location = new System.Drawing.Point(1001, 277);
             this.btnSubir.Name = "btnSubir";
             this.btnSubir.Size = new System.Drawing.Size(88, 25);
             this.btnSubir.TabIndex = 33;
@@ -390,7 +423,7 @@ namespace SistemaGestionGanado {
             // cboCatAuto
             // 
             this.cboCatAuto.FormattingEnabled = true;
-            this.cboCatAuto.Location = new System.Drawing.Point(663, 295);
+            this.cboCatAuto.Location = new System.Drawing.Point(663, 278);
             this.cboCatAuto.Name = "cboCatAuto";
             this.cboCatAuto.Size = new System.Drawing.Size(110, 23);
             this.cboCatAuto.TabIndex = 36;
@@ -406,14 +439,14 @@ namespace SistemaGestionGanado {
             // label12
             // 
             this.label12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label12.Location = new System.Drawing.Point(665, 343);
+            this.label12.Location = new System.Drawing.Point(663, 402);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(650, 2);
             this.label12.TabIndex = 38;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1240, 294);
+            this.button1.Location = new System.Drawing.Point(665, 359);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 43;
@@ -425,7 +458,7 @@ namespace SistemaGestionGanado {
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(1183, 260);
+            this.label15.Location = new System.Drawing.Point(661, 328);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(130, 19);
             this.label15.TabIndex = 44;
@@ -606,7 +639,7 @@ namespace SistemaGestionGanado {
             // label13
             // 
             this.label13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label13.Location = new System.Drawing.Point(663, 424);
+            this.label13.Location = new System.Drawing.Point(661, 483);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(650, 2);
             this.label13.TabIndex = 71;
@@ -616,7 +649,7 @@ namespace SistemaGestionGanado {
             this.label14.AutoSize = true;
             this.label14.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(663, 437);
+            this.label14.Location = new System.Drawing.Point(661, 496);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(75, 21);
             this.label14.TabIndex = 72;
@@ -625,7 +658,7 @@ namespace SistemaGestionGanado {
             // button3
             // 
             this.button3.AutoSize = true;
-            this.button3.Location = new System.Drawing.Point(668, 492);
+            this.button3.Location = new System.Drawing.Point(663, 544);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(105, 25);
             this.button3.TabIndex = 73;
@@ -637,17 +670,280 @@ namespace SistemaGestionGanado {
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(665, 470);
+            this.label27.Location = new System.Drawing.Point(660, 522);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(149, 19);
             this.label27.TabIndex = 74;
             this.label27.Text = "Exportar Vista Actual";
             // 
+            // label28
+            // 
+            this.label28.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label28.Location = new System.Drawing.Point(661, 588);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(650, 2);
+            this.label28.TabIndex = 75;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label29.Location = new System.Drawing.Point(660, 599);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(98, 25);
+            this.label29.TabIndex = 76;
+            this.label29.Text = "Consultas";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label30.Location = new System.Drawing.Point(663, 626);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(157, 19);
+            this.label30.TabIndex = 77;
+            this.label30.Text = "Ganado Desaparecido";
+            // 
+            // datePickerSegPes1
+            // 
+            this.datePickerSegPes1.Checked = false;
+            this.datePickerSegPes1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerSegPes1.Location = new System.Drawing.Point(958, 664);
+            this.datePickerSegPes1.Name = "datePickerSegPes1";
+            this.datePickerSegPes1.Size = new System.Drawing.Size(100, 23);
+            this.datePickerSegPes1.TabIndex = 81;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(665, 664);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(82, 30);
+            this.label32.TabIndex = 80;
+            this.label32.Text = "Rango Primer \r\nPesada:";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // datePickerPrimerPes1
+            // 
+            this.datePickerPrimerPes1.Checked = false;
+            this.datePickerPrimerPes1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerPrimerPes1.Location = new System.Drawing.Point(753, 664);
+            this.datePickerPrimerPes1.Name = "datePickerPrimerPes1";
+            this.datePickerPrimerPes1.Size = new System.Drawing.Size(100, 23);
+            this.datePickerPrimerPes1.TabIndex = 79;
+            // 
+            // lstBoxCatGanadoDesaparecido
+            // 
+            this.lstBoxCatGanadoDesaparecido.FormattingEnabled = true;
+            this.lstBoxCatGanadoDesaparecido.Location = new System.Drawing.Point(1064, 663);
+            this.lstBoxCatGanadoDesaparecido.Name = "lstBoxCatGanadoDesaparecido";
+            this.lstBoxCatGanadoDesaparecido.Size = new System.Drawing.Size(120, 94);
+            this.lstBoxCatGanadoDesaparecido.TabIndex = 84;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(1064, 645);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(58, 15);
+            this.label34.TabIndex = 83;
+            this.label34.Text = "Categoría";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(1192, 646);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(72, 15);
+            this.label35.TabIndex = 86;
+            this.label35.Text = "Procedencia";
+            // 
+            // txtProcedenciaGanadoDesaparecido
+            // 
+            this.txtProcedenciaGanadoDesaparecido.Location = new System.Drawing.Point(1192, 663);
+            this.txtProcedenciaGanadoDesaparecido.Name = "txtProcedenciaGanadoDesaparecido";
+            this.txtProcedenciaGanadoDesaparecido.Size = new System.Drawing.Size(100, 23);
+            this.txtProcedenciaGanadoDesaparecido.TabIndex = 85;
+            // 
+            // btnExportaGanadoDesaparecido
+            // 
+            this.btnExportaGanadoDesaparecido.AutoSize = true;
+            this.btnExportaGanadoDesaparecido.Location = new System.Drawing.Point(1192, 744);
+            this.btnExportaGanadoDesaparecido.Name = "btnExportaGanadoDesaparecido";
+            this.btnExportaGanadoDesaparecido.Size = new System.Drawing.Size(105, 25);
+            this.btnExportaGanadoDesaparecido.TabIndex = 87;
+            this.btnExportaGanadoDesaparecido.Text = "Exportar";
+            this.btnExportaGanadoDesaparecido.UseVisualStyleBackColor = true;
+            this.btnExportaGanadoDesaparecido.Click += new System.EventHandler(this.btnExportaGanadoDesaparecido_Click);
+            // 
+            // datePickerPrimerPes2
+            // 
+            this.datePickerPrimerPes2.Checked = false;
+            this.datePickerPrimerPes2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerPrimerPes2.Location = new System.Drawing.Point(753, 693);
+            this.datePickerPrimerPes2.Name = "datePickerPrimerPes2";
+            this.datePickerPrimerPes2.Size = new System.Drawing.Size(100, 23);
+            this.datePickerPrimerPes2.TabIndex = 88;
+            // 
+            // datePickerSegPes2
+            // 
+            this.datePickerSegPes2.Checked = false;
+            this.datePickerSegPes2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerSegPes2.Location = new System.Drawing.Point(958, 693);
+            this.datePickerSegPes2.Name = "datePickerSegPes2";
+            this.datePickerSegPes2.Size = new System.Drawing.Size(100, 23);
+            this.datePickerSegPes2.TabIndex = 89;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(859, 664);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(93, 30);
+            this.label33.TabIndex = 90;
+            this.label33.Text = "Rango Segunda \r\nPesada:";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(861, 817);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(93, 30);
+            this.label31.TabIndex = 102;
+            this.label31.Text = "Rango Segunda \r\nPesada:";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // datePickerSegPes2GG
+            // 
+            this.datePickerSegPes2GG.Checked = false;
+            this.datePickerSegPes2GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerSegPes2GG.Location = new System.Drawing.Point(960, 846);
+            this.datePickerSegPes2GG.Name = "datePickerSegPes2GG";
+            this.datePickerSegPes2GG.Size = new System.Drawing.Size(100, 23);
+            this.datePickerSegPes2GG.TabIndex = 101;
+            // 
+            // datePickerPrimerPes2GG
+            // 
+            this.datePickerPrimerPes2GG.Checked = false;
+            this.datePickerPrimerPes2GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerPrimerPes2GG.Location = new System.Drawing.Point(755, 846);
+            this.datePickerPrimerPes2GG.Name = "datePickerPrimerPes2GG";
+            this.datePickerPrimerPes2GG.Size = new System.Drawing.Size(100, 23);
+            this.datePickerPrimerPes2GG.TabIndex = 100;
+            // 
+            // btnExportarGG
+            // 
+            this.btnExportarGG.AutoSize = true;
+            this.btnExportarGG.Location = new System.Drawing.Point(1192, 889);
+            this.btnExportarGG.Name = "btnExportarGG";
+            this.btnExportarGG.Size = new System.Drawing.Size(105, 25);
+            this.btnExportarGG.TabIndex = 99;
+            this.btnExportarGG.Text = "Exportar";
+            this.btnExportarGG.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(1192, 798);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(72, 15);
+            this.label36.TabIndex = 98;
+            this.label36.Text = "Procedencia";
+            // 
+            // txtProcedenciaGG
+            // 
+            this.txtProcedenciaGG.Location = new System.Drawing.Point(1192, 816);
+            this.txtProcedenciaGG.Name = "txtProcedenciaGG";
+            this.txtProcedenciaGG.Size = new System.Drawing.Size(100, 23);
+            this.txtProcedenciaGG.TabIndex = 97;
+            // 
+            // lstBoxCatGG
+            // 
+            this.lstBoxCatGG.FormattingEnabled = true;
+            this.lstBoxCatGG.Location = new System.Drawing.Point(1066, 816);
+            this.lstBoxCatGG.Name = "lstBoxCatGG";
+            this.lstBoxCatGG.Size = new System.Drawing.Size(120, 94);
+            this.lstBoxCatGG.TabIndex = 96;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(1066, 798);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(58, 15);
+            this.label37.TabIndex = 95;
+            this.label37.Text = "Categoría";
+            // 
+            // datePickerSegPes1GG
+            // 
+            this.datePickerSegPes1GG.Checked = false;
+            this.datePickerSegPes1GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerSegPes1GG.Location = new System.Drawing.Point(960, 817);
+            this.datePickerSegPes1GG.Name = "datePickerSegPes1GG";
+            this.datePickerSegPes1GG.Size = new System.Drawing.Size(100, 23);
+            this.datePickerSegPes1GG.TabIndex = 94;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(667, 817);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(82, 30);
+            this.label38.TabIndex = 93;
+            this.label38.Text = "Rango Primer \r\nPesada:";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // datePickerPrimerPes1GG
+            // 
+            this.datePickerPrimerPes1GG.Checked = false;
+            this.datePickerPrimerPes1GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datePickerPrimerPes1GG.Location = new System.Drawing.Point(755, 817);
+            this.datePickerPrimerPes1GG.Name = "datePickerPrimerPes1GG";
+            this.datePickerPrimerPes1GG.Size = new System.Drawing.Size(100, 23);
+            this.datePickerPrimerPes1GG.TabIndex = 92;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label39.Location = new System.Drawing.Point(665, 779);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(126, 19);
+            this.label39.TabIndex = 91;
+            this.label39.Text = "Ganancia Ganado";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1343, 898);
+            this.ClientSize = new System.Drawing.Size(1323, 926);
+            this.Controls.Add(this.label31);
+            this.Controls.Add(this.datePickerSegPes2GG);
+            this.Controls.Add(this.datePickerPrimerPes2GG);
+            this.Controls.Add(this.btnExportarGG);
+            this.Controls.Add(this.label36);
+            this.Controls.Add(this.txtProcedenciaGG);
+            this.Controls.Add(this.lstBoxCatGG);
+            this.Controls.Add(this.label37);
+            this.Controls.Add(this.datePickerSegPes1GG);
+            this.Controls.Add(this.label38);
+            this.Controls.Add(this.datePickerPrimerPes1GG);
+            this.Controls.Add(this.label39);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.datePickerSegPes2);
+            this.Controls.Add(this.datePickerPrimerPes2);
+            this.Controls.Add(this.btnExportaGanadoDesaparecido);
+            this.Controls.Add(this.label35);
+            this.Controls.Add(this.txtProcedenciaGanadoDesaparecido);
+            this.Controls.Add(this.lstBoxCatGanadoDesaparecido);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.datePickerSegPes1);
+            this.Controls.Add(this.label32);
+            this.Controls.Add(this.datePickerPrimerPes1);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.label28);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label14);
@@ -779,6 +1075,32 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.DateTimePicker datePickerSegPes1;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.DateTimePicker datePickerPrimerPes1;
+        private System.Windows.Forms.CheckedListBox lstBoxCatGanadoDesaparecido;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox txtProcedenciaGanadoDesaparecido;
+        private System.Windows.Forms.Button btnExportaGanadoDesaparecido;
+        private System.Windows.Forms.DateTimePicker datePickerPrimerPes2;
+        private System.Windows.Forms.DateTimePicker datePickerSegPes2;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.DateTimePicker datePickerSegPes2GG;
+        private System.Windows.Forms.DateTimePicker datePickerPrimerPes2GG;
+        private System.Windows.Forms.Button btnExportarGG;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox txtProcedenciaGG;
+        private System.Windows.Forms.CheckedListBox lstBoxCatGG;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.DateTimePicker datePickerSegPes1GG;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.DateTimePicker datePickerPrimerPes1GG;
+        private System.Windows.Forms.Label label39;
     }
 }
 

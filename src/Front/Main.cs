@@ -47,6 +47,8 @@ namespace SistemaGestionGanado {
                 this.cboCat.Items.Add(cat);
                 this.cboCatAuto.Items.Add(cat);
                 this.lstBoxCat.Items.Add(cat);
+                this.lstBoxCatGanadoDesaparecido.Items.Add(cat);
+                this.lstBoxCatGG.Items.Add(cat);
             }
         }
 
@@ -105,7 +107,7 @@ namespace SistemaGestionGanado {
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getId() });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getPesoActual() });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getCategoria() });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getUltimaVezPesada() });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getUltimaVezPesada().ToString("yyyy-MM-dd") });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getProcedencia() });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = vaca.getEstado() });
                     this.dataGridView1.Rows.Add(row);
@@ -337,10 +339,36 @@ namespace SistemaGestionGanado {
         }
 
         private void button3_Click(object sender, EventArgs e) {
+            if(this.vacas.Count > 0) {
+                List<Vaca> filtrada = new List<Vaca>();
+                foreach(Vaca vaca in this.vacas) {
+                    if(cumpleFiltrosVaca(vaca)) filtrada.Add(vaca);
+                }
+                generarXlsx(filtrada, "VistaSistemaGestionGanado");
+            }
+        }
+
+        private void btnExportaGanadoDesaparecido_Click(object sender, EventArgs e) {
+            if(datePickerPrimerPes1.Checked && datePickerPrimerPes2.Checked && datePickerSegPes1.Checked && datePickerSegPes2.Checked) {
+                string proc = txtProcedenciaGanadoDesaparecido.Text;
+                List<Categoria> categorias = new List<Categoria>();
+                for(int i = 0; i < lstBoxCatGanadoDesaparecido.CheckedItems.Count; i++) {
+                    categorias.Add((Categoria)Enum.Parse(typeof(Categoria), lstBoxCatGanadoDesaparecido.CheckedItems[i].ToString()));
+                }
+                List<Vaca> desaparecidas = src.Persistencia.Consultas.GanadoDesaparecido(datePickerPrimerPes1.Value, datePickerPrimerPes2.Value,
+                    datePickerSegPes1.Value, datePickerSegPes2.Value, proc, categorias);
+                generarXlsx(desaparecidas, "DesaparecidasSistemaGestionGanado");
+            }
+            else {
+                MessageBox.Show("Rellene todos los datos");
+            }
+        }
+
+        private void generarXlsx(List<Vaca> vacas, string titulo) {
             using(var saveFileDialog = new SaveFileDialog()) {
                 saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
-                saveFileDialog.FileName = DateTime.Today.ToString("yyyy-MM-dd") + "-OutputSistemaGestionGanado";
-                if(saveFileDialog.ShowDialog() == DialogResult.OK){
+                saveFileDialog.FileName = DateTime.Today.ToString("yyyy-MM-dd") + "-" + titulo;
+                if(saveFileDialog.ShowDialog() == DialogResult.OK) {
                     string filePath = saveFileDialog.FileName;
 
                     using(var workbook = new XLWorkbook()) {
@@ -353,15 +381,13 @@ namespace SistemaGestionGanado {
                         worksheet.Cell(currentRow, 5).Value = "Procedencia";
                         worksheet.Cell(currentRow, 6).Value = "Estado";
                         foreach(Vaca vaca in vacas) {
-                            if(cumpleFiltrosVaca(vaca)) {
-                                currentRow++;
-                                worksheet.Cell(currentRow, 1).Value = vaca.getId();
-                                worksheet.Cell(currentRow, 2).Value = vaca.getPesoActual();
-                                worksheet.Cell(currentRow, 3).Value = vaca.getCategoria().ToString();
-                                worksheet.Cell(currentRow, 4).Value = vaca.getUltimaVezPesada();
-                                worksheet.Cell(currentRow, 5).Value = vaca.getProcedencia();
-                                worksheet.Cell(currentRow, 6).Value = vaca.getEstado().ToString();
-                            }
+                            currentRow++;
+                            worksheet.Cell(currentRow, 1).Value = vaca.getId();
+                            worksheet.Cell(currentRow, 2).Value = vaca.getPesoActual();
+                            worksheet.Cell(currentRow, 3).Value = vaca.getCategoria().ToString();
+                            worksheet.Cell(currentRow, 4).Value = vaca.getUltimaVezPesada();
+                            worksheet.Cell(currentRow, 5).Value = vaca.getProcedencia();
+                            worksheet.Cell(currentRow, 6).Value = vaca.getEstado().ToString();
                         }
 
                         using(var stream = new MemoryStream()) {
