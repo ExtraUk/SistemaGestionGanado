@@ -11,7 +11,6 @@ namespace SistemaGestionGanado.src.Persistencia {
     class Consultas {
         public static List<Back.Vaca> GanadoDesaparecido(DateTime fecha1, DateTime fecha2, DateTime fecha3, DateTime fecha4, string procedencia, List<Back.Categoria> categorias) {
             List<Back.Vaca> retorno = new List<Back.Vaca>();
-            Back.Vaca vaca;
             try {
                 var conn = new SqlConnection(Persistencia.CadenaDeConexion);
                 conn.Open();
@@ -42,6 +41,52 @@ namespace SistemaGestionGanado.src.Persistencia {
                     using(SqlDataReader oReader = cmd.ExecuteReader()) {
                         retorno = SQLReader(oReader);
                     }
+                }
+                conn.Close();
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retorno;
+        }
+
+        public static List<List<Back.Vaca>> GananciaGanado(DateTime fecha1, DateTime fecha2, DateTime fecha3, DateTime fecha4, string procedencia, List<Back.Categoria> categorias) {
+            List<Back.Vaca> listaRango1 = new List<Back.Vaca>();
+            List<Back.Vaca> listaRango2 = new List<Back.Vaca>();
+            List<List<Back.Vaca>> ret = new List<List<Back.Vaca>>();
+            try {
+                
+                if(categorias.Count > 0) {
+                    foreach(Back.Categoria cat in categorias) {
+                        listaRango1.AddRange(ganadoEntreFechas(fecha1, fecha2, procedencia, cat.ToString()));
+                    }
+                }
+                else {
+                    listaRango1 = ganadoEntreFechas(fecha1, fecha2, procedencia, "null");
+                }
+                listaRango2 = ganadoEntreFechas(fecha3, fecha4, "", "null");
+                ret.Add(listaRango1);
+                ret.Add(listaRango2);
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return ret;
+        }
+
+        private static List<Back.Vaca> ganadoEntreFechas(DateTime fecha1, DateTime fecha2, string procedencia, string cat) {
+            List<Back.Vaca> retorno = new List<Back.Vaca>();
+            try {
+                var conn = new SqlConnection(Persistencia.CadenaDeConexion);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("GanadoEntreFechas", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fecha1", fecha1));
+                cmd.Parameters.Add(new SqlParameter("@fecha2", fecha2));
+                cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                cmd.Parameters.Add(new SqlParameter("@nombreCategoriaVaca", cat));
+                using(SqlDataReader oReader = cmd.ExecuteReader()) {
+                    retorno = SQLReader(oReader);
                 }
                 conn.Close();
             }

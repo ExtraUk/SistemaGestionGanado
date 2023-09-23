@@ -215,7 +215,7 @@ namespace SistemaGestionGanado {
         //Elimina repetidas y retorna la cantidad de repetidas que elimino
         private int eliminarRepetidas(ref List<Vaca> vacas) {
             try {
-                Dictionary<string, bool> conjuntoVacas = new Dictionary<string, bool>();
+                Dictionary<string, bool> conjuntoVacas = new Dictionary<string, bool>(vacas.Count);
                 int repetidas = 0;
 
                 List<Vaca> vacasIterador = new List<Vaca>(); //Lista para que no se rompa en el foreach
@@ -344,7 +344,7 @@ namespace SistemaGestionGanado {
                 foreach(Vaca vaca in this.vacas) {
                     if(cumpleFiltrosVaca(vaca)) filtrada.Add(vaca);
                 }
-                generarXlsx(filtrada, "VistaSistemaGestionGanado");
+                Vaca.GenerarXlsxListaVacas(filtrada, "VistaSistemaGestionGanado");
             }
         }
 
@@ -355,51 +355,26 @@ namespace SistemaGestionGanado {
                 for(int i = 0; i < lstBoxCatGanadoDesaparecido.CheckedItems.Count; i++) {
                     categorias.Add((Categoria)Enum.Parse(typeof(Categoria), lstBoxCatGanadoDesaparecido.CheckedItems[i].ToString()));
                 }
-                List<Vaca> desaparecidas = src.Persistencia.Consultas.GanadoDesaparecido(datePickerPrimerPes1.Value, datePickerPrimerPes2.Value,
+                Consultas.ExportarGanadoDesaparecido(datePickerPrimerPes1.Value, datePickerPrimerPes2.Value,
                     datePickerSegPes1.Value, datePickerSegPes2.Value, proc, categorias);
-                generarXlsx(desaparecidas, "DesaparecidasSistemaGestionGanado");
             }
             else {
                 MessageBox.Show("Rellene todos los datos");
             }
         }
 
-        private void generarXlsx(List<Vaca> vacas, string titulo) {
-            using(var saveFileDialog = new SaveFileDialog()) {
-                saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
-                saveFileDialog.FileName = DateTime.Today.ToString("yyyy-MM-dd") + "-" + titulo;
-                if(saveFileDialog.ShowDialog() == DialogResult.OK) {
-                    string filePath = saveFileDialog.FileName;
-
-                    using(var workbook = new XLWorkbook()) {
-                        var worksheet = workbook.Worksheets.Add("Output");
-                        var currentRow = 1;
-                        worksheet.Cell(currentRow, 1).Value = "Id";
-                        worksheet.Cell(currentRow, 2).Value = "Peso";
-                        worksheet.Cell(currentRow, 3).Value = "Categoria";
-                        worksheet.Cell(currentRow, 4).Value = "Fecha";
-                        worksheet.Cell(currentRow, 5).Value = "Procedencia";
-                        worksheet.Cell(currentRow, 6).Value = "Estado";
-                        foreach(Vaca vaca in vacas) {
-                            currentRow++;
-                            worksheet.Cell(currentRow, 1).Value = vaca.getId();
-                            worksheet.Cell(currentRow, 2).Value = vaca.getPesoActual();
-                            worksheet.Cell(currentRow, 3).Value = vaca.getCategoria().ToString();
-                            worksheet.Cell(currentRow, 4).Value = vaca.getUltimaVezPesada();
-                            worksheet.Cell(currentRow, 5).Value = vaca.getProcedencia();
-                            worksheet.Cell(currentRow, 6).Value = vaca.getEstado().ToString();
-                        }
-
-                        using(var stream = new MemoryStream()) {
-                            workbook.SaveAs(stream);
-                            var content = stream.ToArray();
-
-                            File.WriteAllBytes(filePath, content);
-
-                            MessageBox.Show("Archivo Guardado con Exito");
-                        }
-                    }
+        private void btnExportarGG_Click(object sender, EventArgs e) {
+            if(datePickerPrimerPes1GG.Checked && datePickerPrimerPes2GG.Checked && datePickerSegPes1GG.Checked && datePickerSegPes2GG.Checked) {
+                string proc = txtProcedenciaGG.Text;
+                List<Categoria> categorias = new List<Categoria>();
+                for(int i = 0; i < lstBoxCatGG.CheckedItems.Count; i++) {
+                    categorias.Add((Categoria)Enum.Parse(typeof(Categoria), lstBoxCatGG.CheckedItems[i].ToString()));
                 }
+                Consultas.ExportarGananciaGanado(datePickerPrimerPes1GG.Value, datePickerPrimerPes2GG.Value,
+                    datePickerSegPes1GG.Value, datePickerSegPes2GG.Value, proc, categorias);
+            }
+            else {
+                MessageBox.Show("Rellene todos los datos");
             }
         }
     }

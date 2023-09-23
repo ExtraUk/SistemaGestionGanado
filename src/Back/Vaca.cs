@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SistemaGestionGanado.src.Back {
     public class Vaca {
@@ -91,6 +94,45 @@ namespace SistemaGestionGanado.src.Back {
 
         public static bool MatarVenderVacaPersistencia(Vaca vaca) {
             return Persistencia.Vaca.MatarVender(vaca);
+        }
+
+        public static void GenerarXlsxListaVacas(List<Vaca> vacas, string titulo) {
+            using(var saveFileDialog = new SaveFileDialog()) {
+                saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
+                saveFileDialog.FileName = DateTime.Today.ToString("yyyy-MM-dd") + "-" + titulo;
+                if(saveFileDialog.ShowDialog() == DialogResult.OK) {
+                    string filePath = saveFileDialog.FileName;
+
+                    using(var workbook = new XLWorkbook()) {
+                        var worksheet = workbook.Worksheets.Add("Output");
+                        var currentRow = 1;
+                        worksheet.Cell(currentRow, 1).Value = "Id";
+                        worksheet.Cell(currentRow, 2).Value = "Peso";
+                        worksheet.Cell(currentRow, 3).Value = "Categoria";
+                        worksheet.Cell(currentRow, 4).Value = "Fecha";
+                        worksheet.Cell(currentRow, 5).Value = "Procedencia";
+                        worksheet.Cell(currentRow, 6).Value = "Estado";
+                        foreach(Vaca vaca in vacas) {
+                            currentRow++;
+                            worksheet.Cell(currentRow, 1).Value = vaca.getId();
+                            worksheet.Cell(currentRow, 2).Value = vaca.getPesoActual();
+                            worksheet.Cell(currentRow, 3).Value = vaca.getCategoria().ToString();
+                            worksheet.Cell(currentRow, 4).Value = vaca.getUltimaVezPesada();
+                            worksheet.Cell(currentRow, 5).Value = vaca.getProcedencia();
+                            worksheet.Cell(currentRow, 6).Value = vaca.getEstado().ToString();
+                        }
+
+                        using(var stream = new MemoryStream()) {
+                            workbook.SaveAs(stream);
+                            var content = stream.ToArray();
+
+                            File.WriteAllBytes(filePath, content);
+
+                            MessageBox.Show("Archivo Guardado con Exito");
+                        }
+                    }
+                }
+            }
         }
 
     }

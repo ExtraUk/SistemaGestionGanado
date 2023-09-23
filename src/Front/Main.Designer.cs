@@ -841,6 +841,7 @@ namespace SistemaGestionGanado {
             this.btnExportarGG.TabIndex = 99;
             this.btnExportarGG.Text = "Exportar";
             this.btnExportarGG.UseVisualStyleBackColor = true;
+            this.btnExportarGG.Click += new System.EventHandler(this.btnExportarGG_Click);
             // 
             // label36
             // 
