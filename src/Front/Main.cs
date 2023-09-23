@@ -377,5 +377,15 @@ namespace SistemaGestionGanado {
                 MessageBox.Show("Rellene todos los datos");
             }
         }
+
+        private void btnReidentificacion_Click(object sender, EventArgs e) {
+            if(txtIdReid1.Text != "" && txtIdReid2.Text != "") {
+                Vaca.ReidentificarVaca(txtIdReid1.Text, txtIdReid2.Text);
+                this.actualizarGridView(true);
+            }
+            else {
+                MessageBox.Show("Rellene todos los datos");
+            }
+        }
     }
 }

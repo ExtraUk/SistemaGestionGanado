@@ -133,5 +133,31 @@ namespace SistemaGestionGanado.src.Persistencia {
 
             return retorno;
         }
+
+        public static bool Reidentificar(string idInicial, string idFinal) {
+            bool retorno = true;
+            try {
+                var conn = new SqlConnection(Persistencia.CadenaDeConexion);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("ReidentificarGanado", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@idInicial",idInicial));
+                cmd.Parameters.Add(new SqlParameter("@idFinal", idFinal));
+                int rtn = cmd.ExecuteNonQuery();
+
+                if(rtn <= 0) {
+                    retorno = false;
+                }
+
+                if(conn.State == ConnectionState.Open) {
+                    conn.Close();
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                retorno = false;
+            }
+            return retorno;
+        }
     }
 }

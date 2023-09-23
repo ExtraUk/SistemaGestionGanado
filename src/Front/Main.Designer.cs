@@ -43,8 +43,8 @@ namespace SistemaGestionGanado {
             this.label5 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.cboEstado = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtIdReid1 = new System.Windows.Forms.TextBox();
+            this.txtIdReid2 = new System.Windows.Forms.TextBox();
             this.lblReidentificacion = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -114,6 +114,7 @@ namespace SistemaGestionGanado {
             this.label38 = new System.Windows.Forms.Label();
             this.datePickerPrimerPes1GG = new System.Windows.Forms.DateTimePicker();
             this.label39 = new System.Windows.Forms.Label();
+            this.btnReidentificacion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,7 +134,7 @@ namespace SistemaGestionGanado {
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(643, 513);
+            this.dataGridView1.Size = new System.Drawing.Size(643, 545);
             this.dataGridView1.TabIndex = 0;
             // 
             // id
@@ -276,19 +277,19 @@ namespace SistemaGestionGanado {
             this.cboEstado.TabIndex = 17;
             this.cboEstado.SelectedIndexChanged += new System.EventHandler(this.cboEstado_SelectedIndexChanged);
             // 
-            // textBox1
+            // txtIdReid1
             // 
-            this.textBox1.Location = new System.Drawing.Point(715, 444);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 23);
-            this.textBox1.TabIndex = 18;
+            this.txtIdReid1.Location = new System.Drawing.Point(663, 462);
+            this.txtIdReid1.Name = "txtIdReid1";
+            this.txtIdReid1.Size = new System.Drawing.Size(100, 23);
+            this.txtIdReid1.TabIndex = 18;
             // 
-            // textBox2
+            // txtIdReid2
             // 
-            this.textBox2.Location = new System.Drawing.Point(901, 444);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 23);
-            this.textBox2.TabIndex = 19;
+            this.txtIdReid2.Location = new System.Drawing.Point(769, 462);
+            this.txtIdReid2.Name = "txtIdReid2";
+            this.txtIdReid2.Size = new System.Drawing.Size(100, 23);
+            this.txtIdReid2.TabIndex = 19;
             // 
             // lblReidentificacion
             // 
@@ -304,7 +305,7 @@ namespace SistemaGestionGanado {
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(663, 447);
+            this.label6.Location = new System.Drawing.Point(661, 444);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 15);
             this.label6.TabIndex = 21;
@@ -313,7 +314,7 @@ namespace SistemaGestionGanado {
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(840, 447);
+            this.label7.Location = new System.Drawing.Point(769, 444);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 15);
             this.label7.TabIndex = 22;
@@ -468,7 +469,7 @@ namespace SistemaGestionGanado {
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(12, 587);
+            this.label16.Location = new System.Drawing.Point(12, 615);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(67, 25);
             this.label16.TabIndex = 45;
@@ -477,7 +478,7 @@ namespace SistemaGestionGanado {
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 679);
+            this.label18.Location = new System.Drawing.Point(12, 707);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(58, 15);
             this.label18.TabIndex = 48;
@@ -486,7 +487,7 @@ namespace SistemaGestionGanado {
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 622);
+            this.label17.Location = new System.Drawing.Point(12, 650);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 15);
             this.label17.TabIndex = 51;
@@ -494,7 +495,7 @@ namespace SistemaGestionGanado {
             // 
             // txtIdFiltros
             // 
-            this.txtIdFiltros.Location = new System.Drawing.Point(12, 640);
+            this.txtIdFiltros.Location = new System.Drawing.Point(12, 668);
             this.txtIdFiltros.Name = "txtIdFiltros";
             this.txtIdFiltros.Size = new System.Drawing.Size(100, 23);
             this.txtIdFiltros.TabIndex = 50;
@@ -502,7 +503,7 @@ namespace SistemaGestionGanado {
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(12, 770);
+            this.label19.Location = new System.Drawing.Point(12, 798);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(72, 15);
             this.label19.TabIndex = 53;
@@ -510,7 +511,7 @@ namespace SistemaGestionGanado {
             // 
             // txtProcedenciaFiltros
             // 
-            this.txtProcedenciaFiltros.Location = new System.Drawing.Point(12, 788);
+            this.txtProcedenciaFiltros.Location = new System.Drawing.Point(12, 816);
             this.txtProcedenciaFiltros.Name = "txtProcedenciaFiltros";
             this.txtProcedenciaFiltros.Size = new System.Drawing.Size(100, 23);
             this.txtProcedenciaFiltros.TabIndex = 52;
@@ -518,7 +519,7 @@ namespace SistemaGestionGanado {
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(153, 679);
+            this.label20.Location = new System.Drawing.Point(153, 707);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(42, 15);
             this.label20.TabIndex = 54;
@@ -528,7 +529,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerDesdeFiltros.Checked = false;
             this.datePickerDesdeFiltros.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerDesdeFiltros.Location = new System.Drawing.Point(185, 788);
+            this.datePickerDesdeFiltros.Location = new System.Drawing.Point(185, 816);
             this.datePickerDesdeFiltros.Name = "datePickerDesdeFiltros";
             this.datePickerDesdeFiltros.Size = new System.Drawing.Size(100, 23);
             this.datePickerDesdeFiltros.TabIndex = 57;
@@ -536,7 +537,7 @@ namespace SistemaGestionGanado {
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(131, 779);
+            this.label21.Location = new System.Drawing.Point(131, 807);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(38, 15);
             this.label21.TabIndex = 56;
@@ -545,7 +546,7 @@ namespace SistemaGestionGanado {
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(137, 794);
+            this.label22.Location = new System.Drawing.Point(137, 822);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(42, 15);
             this.label22.TabIndex = 58;
@@ -554,7 +555,7 @@ namespace SistemaGestionGanado {
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(291, 794);
+            this.label23.Location = new System.Drawing.Point(291, 822);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(40, 15);
             this.label23.TabIndex = 60;
@@ -564,7 +565,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerHastaFiltros.Checked = false;
             this.datePickerHastaFiltros.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerHastaFiltros.Location = new System.Drawing.Point(339, 788);
+            this.datePickerHastaFiltros.Location = new System.Drawing.Point(339, 816);
             this.datePickerHastaFiltros.Name = "datePickerHastaFiltros";
             this.datePickerHastaFiltros.Size = new System.Drawing.Size(100, 23);
             this.datePickerHastaFiltros.TabIndex = 59;
@@ -572,7 +573,7 @@ namespace SistemaGestionGanado {
             // lstBoxCat
             // 
             this.lstBoxCat.FormattingEnabled = true;
-            this.lstBoxCat.Location = new System.Drawing.Point(12, 697);
+            this.lstBoxCat.Location = new System.Drawing.Point(12, 725);
             this.lstBoxCat.Name = "lstBoxCat";
             this.lstBoxCat.Size = new System.Drawing.Size(120, 58);
             this.lstBoxCat.TabIndex = 61;
@@ -580,7 +581,7 @@ namespace SistemaGestionGanado {
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(291, 646);
+            this.label24.Location = new System.Drawing.Point(291, 674);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(40, 15);
             this.label24.TabIndex = 66;
@@ -589,7 +590,7 @@ namespace SistemaGestionGanado {
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(137, 646);
+            this.label25.Location = new System.Drawing.Point(137, 674);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(42, 15);
             this.label25.TabIndex = 64;
@@ -598,7 +599,7 @@ namespace SistemaGestionGanado {
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(131, 631);
+            this.label26.Location = new System.Drawing.Point(131, 659);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(32, 15);
             this.label26.TabIndex = 62;
@@ -606,14 +607,14 @@ namespace SistemaGestionGanado {
             // 
             // txtPesoDesdeFiltros
             // 
-            this.txtPesoDesdeFiltros.Location = new System.Drawing.Point(185, 640);
+            this.txtPesoDesdeFiltros.Location = new System.Drawing.Point(185, 668);
             this.txtPesoDesdeFiltros.Name = "txtPesoDesdeFiltros";
             this.txtPesoDesdeFiltros.Size = new System.Drawing.Size(100, 23);
             this.txtPesoDesdeFiltros.TabIndex = 67;
             // 
             // txtPesoHastaFiltros
             // 
-            this.txtPesoHastaFiltros.Location = new System.Drawing.Point(337, 640);
+            this.txtPesoHastaFiltros.Location = new System.Drawing.Point(337, 668);
             this.txtPesoHastaFiltros.Name = "txtPesoHastaFiltros";
             this.txtPesoHastaFiltros.Size = new System.Drawing.Size(100, 23);
             this.txtPesoHastaFiltros.TabIndex = 68;
@@ -621,14 +622,14 @@ namespace SistemaGestionGanado {
             // lstBoxEstado
             // 
             this.lstBoxEstado.FormattingEnabled = true;
-            this.lstBoxEstado.Location = new System.Drawing.Point(153, 697);
+            this.lstBoxEstado.Location = new System.Drawing.Point(153, 725);
             this.lstBoxEstado.Name = "lstBoxEstado";
             this.lstBoxEstado.Size = new System.Drawing.Size(120, 58);
             this.lstBoxEstado.TabIndex = 69;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 828);
+            this.button2.Location = new System.Drawing.Point(12, 856);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 70;
@@ -639,7 +640,7 @@ namespace SistemaGestionGanado {
             // label13
             // 
             this.label13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label13.Location = new System.Drawing.Point(661, 483);
+            this.label13.Location = new System.Drawing.Point(659, 499);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(650, 2);
             this.label13.TabIndex = 71;
@@ -649,7 +650,7 @@ namespace SistemaGestionGanado {
             this.label14.AutoSize = true;
             this.label14.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(661, 496);
+            this.label14.Location = new System.Drawing.Point(659, 512);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(75, 21);
             this.label14.TabIndex = 72;
@@ -658,7 +659,7 @@ namespace SistemaGestionGanado {
             // button3
             // 
             this.button3.AutoSize = true;
-            this.button3.Location = new System.Drawing.Point(663, 544);
+            this.button3.Location = new System.Drawing.Point(661, 560);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(105, 25);
             this.button3.TabIndex = 73;
@@ -670,7 +671,7 @@ namespace SistemaGestionGanado {
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(660, 522);
+            this.label27.Location = new System.Drawing.Point(658, 538);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(149, 19);
             this.label27.TabIndex = 74;
@@ -679,7 +680,7 @@ namespace SistemaGestionGanado {
             // label28
             // 
             this.label28.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label28.Location = new System.Drawing.Point(661, 588);
+            this.label28.Location = new System.Drawing.Point(659, 604);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(650, 2);
             this.label28.TabIndex = 75;
@@ -688,7 +689,7 @@ namespace SistemaGestionGanado {
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(660, 599);
+            this.label29.Location = new System.Drawing.Point(658, 615);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(98, 25);
             this.label29.TabIndex = 76;
@@ -698,7 +699,7 @@ namespace SistemaGestionGanado {
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label30.Location = new System.Drawing.Point(663, 626);
+            this.label30.Location = new System.Drawing.Point(661, 642);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(157, 19);
             this.label30.TabIndex = 77;
@@ -708,7 +709,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerSegPes1.Checked = false;
             this.datePickerSegPes1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerSegPes1.Location = new System.Drawing.Point(958, 664);
+            this.datePickerSegPes1.Location = new System.Drawing.Point(956, 680);
             this.datePickerSegPes1.Name = "datePickerSegPes1";
             this.datePickerSegPes1.Size = new System.Drawing.Size(100, 23);
             this.datePickerSegPes1.TabIndex = 81;
@@ -716,7 +717,7 @@ namespace SistemaGestionGanado {
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(665, 664);
+            this.label32.Location = new System.Drawing.Point(663, 680);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(82, 30);
             this.label32.TabIndex = 80;
@@ -727,7 +728,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerPrimerPes1.Checked = false;
             this.datePickerPrimerPes1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerPrimerPes1.Location = new System.Drawing.Point(753, 664);
+            this.datePickerPrimerPes1.Location = new System.Drawing.Point(751, 680);
             this.datePickerPrimerPes1.Name = "datePickerPrimerPes1";
             this.datePickerPrimerPes1.Size = new System.Drawing.Size(100, 23);
             this.datePickerPrimerPes1.TabIndex = 79;
@@ -735,7 +736,7 @@ namespace SistemaGestionGanado {
             // lstBoxCatGanadoDesaparecido
             // 
             this.lstBoxCatGanadoDesaparecido.FormattingEnabled = true;
-            this.lstBoxCatGanadoDesaparecido.Location = new System.Drawing.Point(1064, 663);
+            this.lstBoxCatGanadoDesaparecido.Location = new System.Drawing.Point(1062, 679);
             this.lstBoxCatGanadoDesaparecido.Name = "lstBoxCatGanadoDesaparecido";
             this.lstBoxCatGanadoDesaparecido.Size = new System.Drawing.Size(120, 94);
             this.lstBoxCatGanadoDesaparecido.TabIndex = 84;
@@ -743,7 +744,7 @@ namespace SistemaGestionGanado {
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(1064, 645);
+            this.label34.Location = new System.Drawing.Point(1062, 661);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(58, 15);
             this.label34.TabIndex = 83;
@@ -752,7 +753,7 @@ namespace SistemaGestionGanado {
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(1192, 646);
+            this.label35.Location = new System.Drawing.Point(1190, 662);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(72, 15);
             this.label35.TabIndex = 86;
@@ -760,7 +761,7 @@ namespace SistemaGestionGanado {
             // 
             // txtProcedenciaGanadoDesaparecido
             // 
-            this.txtProcedenciaGanadoDesaparecido.Location = new System.Drawing.Point(1192, 663);
+            this.txtProcedenciaGanadoDesaparecido.Location = new System.Drawing.Point(1190, 679);
             this.txtProcedenciaGanadoDesaparecido.Name = "txtProcedenciaGanadoDesaparecido";
             this.txtProcedenciaGanadoDesaparecido.Size = new System.Drawing.Size(100, 23);
             this.txtProcedenciaGanadoDesaparecido.TabIndex = 85;
@@ -768,7 +769,7 @@ namespace SistemaGestionGanado {
             // btnExportaGanadoDesaparecido
             // 
             this.btnExportaGanadoDesaparecido.AutoSize = true;
-            this.btnExportaGanadoDesaparecido.Location = new System.Drawing.Point(1192, 744);
+            this.btnExportaGanadoDesaparecido.Location = new System.Drawing.Point(1190, 760);
             this.btnExportaGanadoDesaparecido.Name = "btnExportaGanadoDesaparecido";
             this.btnExportaGanadoDesaparecido.Size = new System.Drawing.Size(105, 25);
             this.btnExportaGanadoDesaparecido.TabIndex = 87;
@@ -780,7 +781,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerPrimerPes2.Checked = false;
             this.datePickerPrimerPes2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerPrimerPes2.Location = new System.Drawing.Point(753, 693);
+            this.datePickerPrimerPes2.Location = new System.Drawing.Point(751, 709);
             this.datePickerPrimerPes2.Name = "datePickerPrimerPes2";
             this.datePickerPrimerPes2.Size = new System.Drawing.Size(100, 23);
             this.datePickerPrimerPes2.TabIndex = 88;
@@ -789,7 +790,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerSegPes2.Checked = false;
             this.datePickerSegPes2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerSegPes2.Location = new System.Drawing.Point(958, 693);
+            this.datePickerSegPes2.Location = new System.Drawing.Point(956, 709);
             this.datePickerSegPes2.Name = "datePickerSegPes2";
             this.datePickerSegPes2.Size = new System.Drawing.Size(100, 23);
             this.datePickerSegPes2.TabIndex = 89;
@@ -797,7 +798,7 @@ namespace SistemaGestionGanado {
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(859, 664);
+            this.label33.Location = new System.Drawing.Point(857, 680);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(93, 30);
             this.label33.TabIndex = 90;
@@ -807,7 +808,7 @@ namespace SistemaGestionGanado {
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(861, 817);
+            this.label31.Location = new System.Drawing.Point(859, 833);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(93, 30);
             this.label31.TabIndex = 102;
@@ -818,7 +819,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerSegPes2GG.Checked = false;
             this.datePickerSegPes2GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerSegPes2GG.Location = new System.Drawing.Point(960, 846);
+            this.datePickerSegPes2GG.Location = new System.Drawing.Point(958, 862);
             this.datePickerSegPes2GG.Name = "datePickerSegPes2GG";
             this.datePickerSegPes2GG.Size = new System.Drawing.Size(100, 23);
             this.datePickerSegPes2GG.TabIndex = 101;
@@ -827,7 +828,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerPrimerPes2GG.Checked = false;
             this.datePickerPrimerPes2GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerPrimerPes2GG.Location = new System.Drawing.Point(755, 846);
+            this.datePickerPrimerPes2GG.Location = new System.Drawing.Point(753, 862);
             this.datePickerPrimerPes2GG.Name = "datePickerPrimerPes2GG";
             this.datePickerPrimerPes2GG.Size = new System.Drawing.Size(100, 23);
             this.datePickerPrimerPes2GG.TabIndex = 100;
@@ -835,7 +836,7 @@ namespace SistemaGestionGanado {
             // btnExportarGG
             // 
             this.btnExportarGG.AutoSize = true;
-            this.btnExportarGG.Location = new System.Drawing.Point(1192, 889);
+            this.btnExportarGG.Location = new System.Drawing.Point(1190, 905);
             this.btnExportarGG.Name = "btnExportarGG";
             this.btnExportarGG.Size = new System.Drawing.Size(105, 25);
             this.btnExportarGG.TabIndex = 99;
@@ -846,7 +847,7 @@ namespace SistemaGestionGanado {
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(1192, 798);
+            this.label36.Location = new System.Drawing.Point(1190, 814);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(72, 15);
             this.label36.TabIndex = 98;
@@ -854,7 +855,7 @@ namespace SistemaGestionGanado {
             // 
             // txtProcedenciaGG
             // 
-            this.txtProcedenciaGG.Location = new System.Drawing.Point(1192, 816);
+            this.txtProcedenciaGG.Location = new System.Drawing.Point(1190, 832);
             this.txtProcedenciaGG.Name = "txtProcedenciaGG";
             this.txtProcedenciaGG.Size = new System.Drawing.Size(100, 23);
             this.txtProcedenciaGG.TabIndex = 97;
@@ -862,7 +863,7 @@ namespace SistemaGestionGanado {
             // lstBoxCatGG
             // 
             this.lstBoxCatGG.FormattingEnabled = true;
-            this.lstBoxCatGG.Location = new System.Drawing.Point(1066, 816);
+            this.lstBoxCatGG.Location = new System.Drawing.Point(1064, 832);
             this.lstBoxCatGG.Name = "lstBoxCatGG";
             this.lstBoxCatGG.Size = new System.Drawing.Size(120, 94);
             this.lstBoxCatGG.TabIndex = 96;
@@ -870,7 +871,7 @@ namespace SistemaGestionGanado {
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(1066, 798);
+            this.label37.Location = new System.Drawing.Point(1064, 814);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(58, 15);
             this.label37.TabIndex = 95;
@@ -880,7 +881,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerSegPes1GG.Checked = false;
             this.datePickerSegPes1GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerSegPes1GG.Location = new System.Drawing.Point(960, 817);
+            this.datePickerSegPes1GG.Location = new System.Drawing.Point(958, 833);
             this.datePickerSegPes1GG.Name = "datePickerSegPes1GG";
             this.datePickerSegPes1GG.Size = new System.Drawing.Size(100, 23);
             this.datePickerSegPes1GG.TabIndex = 94;
@@ -888,7 +889,7 @@ namespace SistemaGestionGanado {
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(667, 817);
+            this.label38.Location = new System.Drawing.Point(665, 833);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(82, 30);
             this.label38.TabIndex = 93;
@@ -899,7 +900,7 @@ namespace SistemaGestionGanado {
             // 
             this.datePickerPrimerPes1GG.Checked = false;
             this.datePickerPrimerPes1GG.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePickerPrimerPes1GG.Location = new System.Drawing.Point(755, 817);
+            this.datePickerPrimerPes1GG.Location = new System.Drawing.Point(753, 833);
             this.datePickerPrimerPes1GG.Name = "datePickerPrimerPes1GG";
             this.datePickerPrimerPes1GG.Size = new System.Drawing.Size(100, 23);
             this.datePickerPrimerPes1GG.TabIndex = 92;
@@ -908,17 +909,29 @@ namespace SistemaGestionGanado {
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label39.Location = new System.Drawing.Point(665, 779);
+            this.label39.Location = new System.Drawing.Point(663, 795);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(126, 19);
             this.label39.TabIndex = 91;
             this.label39.Text = "Ganancia Ganado";
             // 
+            // btnReidentificacion
+            // 
+            this.btnReidentificacion.AutoSize = true;
+            this.btnReidentificacion.Location = new System.Drawing.Point(875, 460);
+            this.btnReidentificacion.Name = "btnReidentificacion";
+            this.btnReidentificacion.Size = new System.Drawing.Size(90, 25);
+            this.btnReidentificacion.TabIndex = 103;
+            this.btnReidentificacion.Text = "Re-identificar";
+            this.btnReidentificacion.UseVisualStyleBackColor = true;
+            this.btnReidentificacion.Click += new System.EventHandler(this.btnReidentificacion_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1323, 926);
+            this.ClientSize = new System.Drawing.Size(1323, 968);
+            this.Controls.Add(this.btnReidentificacion);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.datePickerSegPes2GG);
             this.Controls.Add(this.datePickerPrimerPes2GG);
@@ -988,8 +1001,8 @@ namespace SistemaGestionGanado {
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblReidentificacion);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtIdReid2);
+            this.Controls.Add(this.txtIdReid1);
             this.Controls.Add(this.cboEstado);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.label5);
@@ -1031,8 +1044,8 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.ComboBox cboEstado;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtIdReid1;
+        private System.Windows.Forms.TextBox txtIdReid2;
         private System.Windows.Forms.Label lblReidentificacion;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -1102,6 +1115,7 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.DateTimePicker datePickerPrimerPes1GG;
         private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Button btnReidentificacion;
     }
 }
 

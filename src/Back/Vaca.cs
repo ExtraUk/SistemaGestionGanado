@@ -135,5 +135,13 @@ namespace SistemaGestionGanado.src.Back {
             }
         }
 
+        public static void ReidentificarVaca(string idInicial, string idFinal) {
+            if(Persistencia.Vaca.Reidentificar(idInicial, idFinal)) {
+                MessageBox.Show("Re-Identificado con Exito");
+            }
+            else {
+                MessageBox.Show("No se encontró animal con el Id: " + idInicial);
+            }
+        }
     }
 }
