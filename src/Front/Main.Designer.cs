@@ -115,6 +115,10 @@ namespace SistemaGestionGanado {
             this.datePickerPrimerPes1GG = new System.Windows.Forms.DateTimePicker();
             this.label39 = new System.Windows.Forms.Label();
             this.btnReidentificacion = new System.Windows.Forms.Button();
+            this.btnAgregarAuto = new System.Windows.Forms.Button();
+            this.label40 = new System.Windows.Forms.Label();
+            this.lblArchivosSubidos = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -447,7 +451,7 @@ namespace SistemaGestionGanado {
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(665, 359);
+            this.button1.Location = new System.Drawing.Point(663, 367);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 43;
@@ -459,7 +463,7 @@ namespace SistemaGestionGanado {
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(661, 328);
+            this.label15.Location = new System.Drawing.Point(659, 336);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(130, 19);
             this.label15.TabIndex = 44;
@@ -926,11 +930,55 @@ namespace SistemaGestionGanado {
             this.btnReidentificacion.UseVisualStyleBackColor = true;
             this.btnReidentificacion.Click += new System.EventHandler(this.btnReidentificacion_Click);
             // 
+            // btnAgregarAuto
+            // 
+            this.btnAgregarAuto.AutoSize = true;
+            this.btnAgregarAuto.Location = new System.Drawing.Point(1151, 268);
+            this.btnAgregarAuto.Name = "btnAgregarAuto";
+            this.btnAgregarAuto.Size = new System.Drawing.Size(111, 40);
+            this.btnAgregarAuto.TabIndex = 104;
+            this.btnAgregarAuto.Text = "Agregar Archivos\r\na la Base de Datos";
+            this.btnAgregarAuto.UseVisualStyleBackColor = true;
+            this.btnAgregarAuto.Click += new System.EventHandler(this.btnAgregarAuto_Click);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(1001, 305);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(101, 15);
+            this.label40.TabIndex = 105;
+            this.label40.Text = "Archivos Subidos:";
+            // 
+            // lblArchivosSubidos
+            // 
+            this.lblArchivosSubidos.AutoSize = true;
+            this.lblArchivosSubidos.Location = new System.Drawing.Point(1099, 305);
+            this.lblArchivosSubidos.Name = "lblArchivosSubidos";
+            this.lblArchivosSubidos.Size = new System.Drawing.Size(13, 15);
+            this.lblArchivosSubidos.TabIndex = 106;
+            this.lblArchivosSubidos.Text = "0";
+            // 
+            // button4
+            // 
+            this.button4.AutoSize = true;
+            this.button4.Location = new System.Drawing.Point(1136, 314);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(154, 25);
+            this.button4.TabIndex = 107;
+            this.button4.Text = "Eliminar Archivos Subidos";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1323, 968);
+            this.ClientSize = new System.Drawing.Size(1331, 968);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.lblArchivosSubidos);
+            this.Controls.Add(this.label40);
+            this.Controls.Add(this.btnAgregarAuto);
             this.Controls.Add(this.btnReidentificacion);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.datePickerSegPes2GG);
@@ -1116,6 +1164,10 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.DateTimePicker datePickerPrimerPes1GG;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Button btnReidentificacion;
+        private System.Windows.Forms.Button btnAgregarAuto;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label lblArchivosSubidos;
+        private System.Windows.Forms.Button button4;
     }
 }
 

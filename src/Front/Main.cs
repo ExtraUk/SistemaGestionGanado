@@ -17,6 +17,8 @@ namespace SistemaGestionGanado {
     public partial class Main: Form {
         private List<Vaca> vacas;
         private Dictionary<string, Vaca> dictVacas = new Dictionary<string, Vaca>();
+        private List<Vaca> vacasAgregar = new List<Vaca>();
+        private int archivosAgregar = 0;
         public Main() {
             InitializeComponent();
             this.inicializarEstadosCategorias();
@@ -119,41 +121,47 @@ namespace SistemaGestionGanado {
             string procedencia = txtProcedenciaAuto.Text;
             int categoriaSelectedIndex = cboCatAuto.SelectedIndex;
             int estadoSelectedIndex = cboEstadoAuto.SelectedIndex;
-            if(procedencia != "" && categoriaSelectedIndex != -1 && estadoSelectedIndex != -1) {
+            if(estadoSelectedIndex != -1) {
                 bool muertaVendida = (Estado)estadoSelectedIndex == Estado.Muerta || (Estado)estadoSelectedIndex == Estado.Vendida;
-                using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
-                    openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
-                    if(openFileDialog.ShowDialog() == DialogResult.OK) {
-                        string filePath = openFileDialog.FileName;
-                        List<Vaca> vacasCSV = vacasEnCsv(filePath, muertaVendida);
-                        int cantidadRepetidas = eliminarRepetidas(ref vacasCSV);
-                        if(cantidadRepetidas == -1) return;
+                if((procedencia != "" && categoriaSelectedIndex != -1) || muertaVendida) {
+                    using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
+                        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+                        if(openFileDialog.ShowDialog() == DialogResult.OK) {
+                            string filePath = openFileDialog.FileName;
+                            List<Vaca> vacasCSV = vacasEnCsv(filePath, muertaVendida);
+                            int cantidadRepetidas = eliminarRepetidas(ref vacasCSV);
+                            if(cantidadRepetidas == -1) return;
 
-                        DialogResult result = MessageBox.Show("Se leyeron: " + (vacasCSV.Count+cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasCSV.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if(result == DialogResult.Yes) {
-                            if(!muertaVendida) {
-                                foreach(Vaca vaca in vacasCSV) {
-                                    vaca.setCategoria((Categoria)categoriaSelectedIndex);
-                                    vaca.setProcedencia(procedencia);
-                                    vaca.setEstado((Estado)estadoSelectedIndex);
+                            DialogResult result = MessageBox.Show("Se leyeron: " + (vacasCSV.Count + cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasCSV.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if(result == DialogResult.Yes) {
+                                if(!muertaVendida) {
+                                    foreach(Vaca vaca in vacasCSV) {
+                                        vaca.setCategoria((Categoria)categoriaSelectedIndex);
+                                        vaca.setProcedencia(procedencia);
+                                        vaca.setEstado((Estado)estadoSelectedIndex);
+                                    }
+                                    vacasAgregar.AddRange(vacasCSV);
                                 }
-                                persistirVacas(vacasCSV);
-                            }
-                            else {
-                                foreach(Vaca vaca in vacasCSV) {
-                                    vaca.setEstado((Estado)estadoSelectedIndex);
-                                    vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
-                                    vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
-                                    matarVenderVaca(vaca);
+                                else {
+                                    foreach(Vaca vaca in vacasCSV) {
+                                        vaca.setEstado((Estado)estadoSelectedIndex);
+                                        vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
+                                        vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
+                                    }
+                                    vacasAgregar.AddRange(vacasCSV);
                                 }
+                                this.archivosAgregar++;
+                                this.actualizarLblArchivosSubidos();
                             }
-                            this.actualizarGridView(true);
                         }
                     }
                 }
+                else {
+                    MessageBox.Show("Rellene todos los datos de la actualización automática");
+                }
             }
             else {
-                MessageBox.Show("Rellene todos los datos de la actualización automática");
+                MessageBox.Show("Rellene los datos del estado");
             }
         }
 
@@ -386,6 +394,44 @@ namespace SistemaGestionGanado {
             else {
                 MessageBox.Show("Rellene todos los datos");
             }
+        }
+
+        private void btnAgregarAuto_Click(object sender, EventArgs e) {
+            if(vacasAgregar.Count > 0) {
+                int repetidas = eliminarRepetidas(ref vacasAgregar);
+                DialogResult result = MessageBox.Show("Se leyeron: " + (vacasAgregar.Count + repetidas) +
+                    " animales, de los cuales " + repetidas + " repetidas fueron eliminadas, Quedaron: " + vacasAgregar.Count +
+                    " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes) {
+                    foreach(Vaca vaca in vacasAgregar) {
+                        if(vaca.getEstado() == Estado.Viva) {
+                            persistirVaca(vaca);
+                        }
+                        else {
+                            matarVenderVaca(vaca);
+                        }
+                    }
+                    actualizarGridView(true);
+                    limpiarArchivosSubidos();
+                }
+            }
+            else {
+                MessageBox.Show("No hay archivos que agregar");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e) {
+            limpiarArchivosSubidos();
+        }
+
+        private void limpiarArchivosSubidos() {
+            archivosAgregar = 0;
+            vacasAgregar.Clear();
+            actualizarLblArchivosSubidos();
+        }
+
+        private void actualizarLblArchivosSubidos() {
+            this.lblArchivosSubidos.Text = archivosAgregar.ToString();
         }
     }
 }
