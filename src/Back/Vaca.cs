@@ -16,10 +16,6 @@ namespace SistemaGestionGanado.src.Back {
         private Categoria categoria;
         private string procedencia;
         private Estado estado;
-        private List<DateTime> fechasPesada;
-        private List<float> pesos;
-        private List<string> procedencias;
-        private List<Estado> estados;
 
         public Vaca(string id, float peso, DateTime fecha, Categoria cat, string proc, Estado estado) {
             this.id = id;
@@ -27,15 +23,7 @@ namespace SistemaGestionGanado.src.Back {
             this.ultimaVezPesada = fecha;
             this.categoria = cat;
             this.procedencia = proc;
-            this.fechasPesada = new List<DateTime>();
-            this.fechasPesada.Add(fecha);
-            this.pesos = new List<float>();
-            this.pesos.Add(peso);
-            this.procedencias = new List<string>();
-            this.procedencias.Add(proc);
             this.estado = estado;
-            this.estados = new List<Estado>();
-            this.estados.Add(estado);
         }
 
         public Vaca() {
@@ -141,6 +129,34 @@ namespace SistemaGestionGanado.src.Back {
             }
             else {
                 MessageBox.Show("No se encontró animal con el Id: " + idInicial);
+            }
+        }
+
+        //Dada una lista de Vacas elimina repetidas y retorna la cantidad de repetidas que elimino
+        public static int EliminarRepetidas(ref List<Vaca> vacas) {
+            try {
+                Dictionary<string, bool> conjuntoVacas = new Dictionary<string, bool>(vacas.Count);
+                int repetidas = 0;
+
+                List<Vaca> vacasIterador = new List<Vaca>(); //Lista para que no se rompa en el foreach
+                foreach(Vaca vaca in vacas) {
+                    vacasIterador.Add(vaca);
+                }
+
+                foreach(Vaca vaca in vacasIterador) {
+                    if(conjuntoVacas.ContainsKey(vaca.getId())) {
+                        vacas.Remove(vaca);
+                        repetidas++;
+                    }
+                    else {
+                        conjuntoVacas.Add(vaca.getId(), true);
+                    }
+                }
+                return repetidas;
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
             }
         }
     }
