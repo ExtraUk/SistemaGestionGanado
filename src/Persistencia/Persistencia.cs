@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace SistemaGestionGanado.src.Persistencia {
     public class Persistencia {
-        public static string CadenaDeConexion = @"Server=localhost\SQLEXPRESS;Database=SistemaGestionGanado;User Id=SistemaGestionGanadoAdmin;Password=Ssga1234;";
+        public static string CadenaDeConexion = @Properties.Settings.Default.DBConnectionString;
     }
 }

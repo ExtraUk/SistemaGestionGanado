@@ -159,5 +159,33 @@ namespace SistemaGestionGanado.src.Persistencia {
             }
             return retorno;
         }
+
+        public static void LimpiarEliminadas() {
+            try {
+                var conn = new SqlConnection(Persistencia.CadenaDeConexion);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("LimpiarEliminadas", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void RestaurarEliminadas() {
+            try {
+                var conn = new SqlConnection(Persistencia.CadenaDeConexion);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("RestaurarEliminadas", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

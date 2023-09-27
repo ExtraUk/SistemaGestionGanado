@@ -119,6 +119,7 @@ namespace SistemaGestionGanado {
             this.label40 = new System.Windows.Forms.Label();
             this.lblArchivosSubidos = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.btnConfig = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -970,11 +971,23 @@ namespace SistemaGestionGanado {
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // btnConfig
+            // 
+            this.btnConfig.AutoSize = true;
+            this.btnConfig.Location = new System.Drawing.Point(1226, 9);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(93, 25);
+            this.btnConfig.TabIndex = 108;
+            this.btnConfig.Text = "Configuracion";
+            this.btnConfig.UseVisualStyleBackColor = true;
+            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 968);
+            this.Controls.Add(this.btnConfig);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.lblArchivosSubidos);
             this.Controls.Add(this.label40);
@@ -1168,6 +1181,7 @@ namespace SistemaGestionGanado {
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label lblArchivosSubidos;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnConfig;
     }
 }
 

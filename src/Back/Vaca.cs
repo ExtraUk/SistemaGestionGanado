@@ -159,5 +159,23 @@ namespace SistemaGestionGanado.src.Back {
                 return -1;
             }
         }
+
+        public static void LimpiarEliminadas() {
+            try {
+                Persistencia.Vaca.LimpiarEliminadas();
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void RestaurarEliminadas() {
+            try {
+                Persistencia.Vaca.RestaurarEliminadas();
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

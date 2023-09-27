@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 
 namespace SistemaGestionGanado.src.Back {
     class LectorArchivos {
@@ -63,6 +66,53 @@ namespace SistemaGestionGanado.src.Back {
             }
             if(vaca.getId() != null) return vaca;
             return null;
+        }
+
+        public static List<Vaca> VacasEnXlsx(string filePath, bool muertaVendida) {
+            List<Vaca> vacasEnXlsx = new List<Vaca>();
+            try {
+                using(var workbook = new XLWorkbook(filePath)) {
+                    IXLWorksheet worksheet = workbook.Worksheet(1);
+                    foreach(var row in worksheet.RowsUsed()) {
+                        string[] linea = new string[row.CellsUsed().Count()];
+                        for(int i=0; i<linea.Length; i++) {
+                            linea[i] = row.CellsUsed().ElementAt(i).Value.ToString();
+                        }
+                        Vaca vaca = LeerLinea(linea, muertaVendida);
+                        if(vaca != null) {
+                            vacasEnXlsx.Add(vaca);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return vacasEnXlsx;
+        }
+
+        public static List<Vaca> VacasEnXls(string filePath, bool muertaVendida) {
+            List<Vaca> vacasEnXls = new List<Vaca>();
+            try {
+                using(FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read)) { 
+                    IWorkbook workbook = new HSSFWorkbook(fs);
+                    ISheet sheet = workbook.GetSheetAt(0);
+                    foreach(IRow row in sheet) { 
+                        string[] linea = new string[row.Cells.Count()];
+                            for(int i = 0; i < linea.Length; i++) {
+                                linea[i] = row.Cells[i].ToString();
+                            }
+                            Vaca vaca = LeerLinea(linea, muertaVendida);
+                            if(vaca != null) {
+                                vacasEnXls.Add(vaca);
+                            }
+                        }
+                    }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return vacasEnXls;
         }
     }
 }

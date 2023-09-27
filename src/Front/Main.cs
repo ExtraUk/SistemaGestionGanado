@@ -41,7 +41,7 @@ namespace SistemaGestionGanado {
         }
 
         //Actualiza el DataGridView, recibe un bool refreshDB como parametro el cual indicara si debe actualizarse desde la base de datos o solo actualizar filtros
-        private void actualizarGridView(bool refreshDB) {
+        public void actualizarGridView(bool refreshDB) {
             if(refreshDB) {
                 vacas = src.Persistencia.Vaca.TraerTodas();
                 actualizarDiccionario();
@@ -83,49 +83,6 @@ namespace SistemaGestionGanado {
         //Dada una vaca la mata o vende en la base de datos
         private static void matarVenderVaca(Vaca vaca) {
             Vaca.MatarVenderVacaPersistencia(vaca);
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e) {
-            try {
-                Estado estado = (Estado)this.cboEstado.SelectedIndex;
-                bool flag = false;
-                switch(estado) {
-                    case Estado.Viva:
-                        if(this.txtId.Text != "" && this.txtPeso.Text != "" && this.dateTimePicker1.Checked && this.cboCat.SelectedIndex != -1) {
-                            String id = this.txtId.Text.Trim();
-                            float peso = float.Parse(this.txtPeso.Text);
-                            DateTime fecha = this.dateTimePicker1.Value;
-                            Categoria cat = (Categoria)this.cboCat.SelectedIndex;
-                            String proc = this.txtProcedencia.Text;
-                            Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
-                            persistirVaca(vaca);
-                            this.actualizarGridView(true);
-                        }
-                        else flag = true;
-                        break;
-                    case Estado.Muerta: case Estado.Vendida:
-                        if(this.txtId.Text != "" && this.dateTimePicker1.Checked) {
-                            String id = this.txtId.Text;
-                            DateTime fecha = this.dateTimePicker1.Value;
-                            Vaca vaca = new Vaca(id);
-                            vaca.setEstado(estado);
-                            vaca.setUltimaVezPesada(fecha);
-                            vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
-                            vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
-                            matarVenderVaca(vaca);
-                            this.actualizarGridView(true);
-                        }
-                        else flag = true;
-                        break;
-                    default:
-                        flag = true;
-                        break;
-                }
-                if(flag) MessageBox.Show("Rellene todos los datos para continuar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch(Exception ex) {
-                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         //Dada una vaca retorna true sii la vaca cumple con los filtros solicitados
@@ -182,6 +139,50 @@ namespace SistemaGestionGanado {
             this.lblArchivosSubidos.Text = archivosAgregar.ToString();
         }
 
+        private void btnAgregar_Click(object sender, EventArgs e) {
+            try {
+                Estado estado = (Estado)this.cboEstado.SelectedIndex;
+                bool flag = false;
+                switch(estado) {
+                    case Estado.Viva:
+                        if(this.txtId.Text != "" && this.txtPeso.Text != "" && this.dateTimePicker1.Checked && this.cboCat.SelectedIndex != -1) {
+                            String id = this.txtId.Text.Trim();
+                            float peso = float.Parse(this.txtPeso.Text);
+                            DateTime fecha = this.dateTimePicker1.Value;
+                            Categoria cat = (Categoria)this.cboCat.SelectedIndex;
+                            String proc = this.txtProcedencia.Text;
+                            Vaca vaca = new Vaca(id, peso, fecha, cat, proc, estado);
+                            persistirVaca(vaca);
+                            this.actualizarGridView(true);
+                        }
+                        else flag = true;
+                        break;
+                    case Estado.Muerta:
+                    case Estado.Vendida:
+                        if(this.txtId.Text != "" && this.dateTimePicker1.Checked) {
+                            String id = this.txtId.Text;
+                            DateTime fecha = this.dateTimePicker1.Value;
+                            Vaca vaca = new Vaca(id);
+                            vaca.setEstado(estado);
+                            vaca.setUltimaVezPesada(fecha);
+                            vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
+                            vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
+                            matarVenderVaca(vaca);
+                            this.actualizarGridView(true);
+                        }
+                        else flag = true;
+                        break;
+                    default:
+                        flag = true;
+                        break;
+                }
+                if(flag) MessageBox.Show("Rellene todos los datos para continuar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnSubir_Click(object sender, EventArgs e) {
             string procedencia = txtProcedenciaAuto.Text;
             int categoriaSelectedIndex = cboCatAuto.SelectedIndex;
@@ -190,30 +191,39 @@ namespace SistemaGestionGanado {
                 bool muertaVendida = (Estado)estadoSelectedIndex == Estado.Muerta || (Estado)estadoSelectedIndex == Estado.Vendida;
                 if((procedencia != "" && categoriaSelectedIndex != -1) || muertaVendida) {
                     using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
-                        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+                        openFileDialog.Filter = "Excel Files (*.csv;*.xlsx;*.xls)|*.csv;*.xlsx;*.xls|All Files (*.*)|*.*";
                         if(openFileDialog.ShowDialog() == DialogResult.OK) {
                             string filePath = openFileDialog.FileName;
-                            List<Vaca> vacasCSV = LectorArchivos.VacasEnCsv(filePath, muertaVendida);
-                            int cantidadRepetidas = Vaca.EliminarRepetidas(ref vacasCSV);
+                            List<Vaca> vacasArchivo;
+                            if(openFileDialog.SafeFileName.Contains(".csv")){
+                                vacasArchivo = LectorArchivos.VacasEnCsv(filePath, muertaVendida);
+                            }
+                            else if(openFileDialog.SafeFileName.Contains(".xlsx")){
+                                vacasArchivo = LectorArchivos.VacasEnXlsx(filePath, muertaVendida);
+                            }
+                            else {
+                                vacasArchivo = LectorArchivos.VacasEnXls(filePath, muertaVendida);
+                            }
+                            int cantidadRepetidas = Vaca.EliminarRepetidas(ref vacasArchivo);
                             if(cantidadRepetidas == -1) return;
 
-                            DialogResult result = MessageBox.Show("Se leyeron: " + (vacasCSV.Count + cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasCSV.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            DialogResult result = MessageBox.Show("Se leyeron: " + (vacasArchivo.Count + cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasArchivo.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if(result == DialogResult.Yes) {
                                 if(!muertaVendida) {
-                                    foreach(Vaca vaca in vacasCSV) {
+                                    foreach(Vaca vaca in vacasArchivo) {
                                         vaca.setCategoria((Categoria)categoriaSelectedIndex);
                                         vaca.setProcedencia(procedencia);
                                         vaca.setEstado((Estado)estadoSelectedIndex);
                                     }
-                                    vacasAgregar.AddRange(vacasCSV);
+                                    vacasAgregar.AddRange(vacasArchivo);
                                 }
                                 else {
-                                    foreach(Vaca vaca in vacasCSV) {
+                                    foreach(Vaca vaca in vacasArchivo) {
                                         vaca.setEstado((Estado)estadoSelectedIndex);
                                         vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
                                         vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
                                     }
-                                    vacasAgregar.AddRange(vacasCSV);
+                                    vacasAgregar.AddRange(vacasArchivo);
                                 }
                                 this.archivosAgregar++;
                                 this.actualizarLblArchivosSubidos();
@@ -347,6 +357,11 @@ namespace SistemaGestionGanado {
 
         private void button4_Click(object sender, EventArgs e) {
             limpiarArchivosSubidos();
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e) {
+            src.Front.Config config = new src.Front.Config(this);
+            config.ShowDialog();
         }
     }
 }
