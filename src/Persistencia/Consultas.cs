@@ -22,7 +22,8 @@ namespace SistemaGestionGanado.src.Persistencia {
                         cmd.Parameters.Add(new SqlParameter("@fechaPrimerPesada2", fecha2));
                         cmd.Parameters.Add(new SqlParameter("@fechaSegundaPesada1", fecha3));
                         cmd.Parameters.Add(new SqlParameter("@fechaSegundaPesada2", fecha4));
-                        cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                        if(procedencia.Length > 0) cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                        else cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", DBNull.Value));
                         cmd.Parameters.Add(new SqlParameter("@nombreCategoriaVaca", cat.ToString()));
                         using(SqlDataReader oReader = cmd.ExecuteReader()) {
                             retorno.AddRange(SQLReader(oReader));
@@ -36,7 +37,8 @@ namespace SistemaGestionGanado.src.Persistencia {
                     cmd.Parameters.Add(new SqlParameter("@fechaPrimerPesada2", fecha2));
                     cmd.Parameters.Add(new SqlParameter("@fechaSegundaPesada1", fecha3));
                     cmd.Parameters.Add(new SqlParameter("@fechaSegundaPesada2", fecha4));
-                    cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                    if(procedencia.Length > 0) cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                    else cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", DBNull.Value));
                     cmd.Parameters.Add(new SqlParameter("@nombreCategoriaVaca", "null"));
                     using(SqlDataReader oReader = cmd.ExecuteReader()) {
                         retorno = SQLReader(oReader);
@@ -83,7 +85,8 @@ namespace SistemaGestionGanado.src.Persistencia {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@fecha1", fecha1));
                 cmd.Parameters.Add(new SqlParameter("@fecha2", fecha2));
-                cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                if(procedencia.Length > 0) cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", procedencia));
+                else cmd.Parameters.Add(new SqlParameter("@nombreProcedenciaVaca", DBNull.Value));
                 cmd.Parameters.Add(new SqlParameter("@nombreCategoriaVaca", cat));
                 using(SqlDataReader oReader = cmd.ExecuteReader()) {
                     retorno = SQLReader(oReader);

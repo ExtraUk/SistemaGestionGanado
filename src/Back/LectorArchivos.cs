@@ -41,6 +41,7 @@ namespace SistemaGestionGanado.src.Back {
                 for(int i = 0; i < values.Length; i++) {
                     switch(i) {
                         case 0:
+                            if(values[0].Length < 5) return null;
                             vaca.setId(values[0]);
                             break;
                         case 1:
@@ -53,6 +54,7 @@ namespace SistemaGestionGanado.src.Back {
                 for(int i = 0; i < values.Length; i++) {
                     switch(i) {
                         case 0:
+                            if(values[0].Length < 5) return null;
                             vaca.setId(values[0]);
                             break;
                         case 1:

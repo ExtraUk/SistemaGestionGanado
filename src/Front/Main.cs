@@ -184,59 +184,64 @@ namespace SistemaGestionGanado {
         }
 
         private void btnSubir_Click(object sender, EventArgs e) {
-            string procedencia = txtProcedenciaAuto.Text;
-            int categoriaSelectedIndex = cboCatAuto.SelectedIndex;
-            int estadoSelectedIndex = cboEstadoAuto.SelectedIndex;
-            if(estadoSelectedIndex != -1) {
-                bool muertaVendida = (Estado)estadoSelectedIndex == Estado.Muerta || (Estado)estadoSelectedIndex == Estado.Vendida;
-                if((procedencia != "" && categoriaSelectedIndex != -1) || muertaVendida) {
-                    using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
-                        openFileDialog.Filter = "Excel Files (*.csv;*.xlsx;*.xls)|*.csv;*.xlsx;*.xls|All Files (*.*)|*.*";
-                        if(openFileDialog.ShowDialog() == DialogResult.OK) {
-                            string filePath = openFileDialog.FileName;
-                            List<Vaca> vacasArchivo;
-                            if(openFileDialog.SafeFileName.Contains(".csv")){
-                                vacasArchivo = LectorArchivos.VacasEnCsv(filePath, muertaVendida);
-                            }
-                            else if(openFileDialog.SafeFileName.Contains(".xlsx")){
-                                vacasArchivo = LectorArchivos.VacasEnXlsx(filePath, muertaVendida);
-                            }
-                            else {
-                                vacasArchivo = LectorArchivos.VacasEnXls(filePath, muertaVendida);
-                            }
-                            int cantidadRepetidas = Vaca.EliminarRepetidas(ref vacasArchivo);
-                            if(cantidadRepetidas == -1) return;
-
-                            DialogResult result = MessageBox.Show("Se leyeron: " + (vacasArchivo.Count + cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasArchivo.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if(result == DialogResult.Yes) {
-                                if(!muertaVendida) {
-                                    foreach(Vaca vaca in vacasArchivo) {
-                                        vaca.setCategoria((Categoria)categoriaSelectedIndex);
-                                        vaca.setProcedencia(procedencia);
-                                        vaca.setEstado((Estado)estadoSelectedIndex);
-                                    }
-                                    vacasAgregar.AddRange(vacasArchivo);
+            try {
+                string procedencia = txtProcedenciaAuto.Text;
+                int categoriaSelectedIndex = cboCatAuto.SelectedIndex;
+                int estadoSelectedIndex = cboEstadoAuto.SelectedIndex;
+                if(estadoSelectedIndex != -1) {
+                    bool muertaVendida = (Estado)estadoSelectedIndex == Estado.Muerta || (Estado)estadoSelectedIndex == Estado.Vendida;
+                    if((procedencia != "" && categoriaSelectedIndex != -1) || muertaVendida) {
+                        using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
+                            openFileDialog.Filter = "Excel Files (*.csv;*.xlsx;*.xls)|*.csv;*.xlsx;*.xls|All Files (*.*)|*.*";
+                            if(openFileDialog.ShowDialog() == DialogResult.OK) {
+                                string filePath = openFileDialog.FileName;
+                                List<Vaca> vacasArchivo;
+                                if(openFileDialog.SafeFileName.Contains(".csv")) {
+                                    vacasArchivo = LectorArchivos.VacasEnCsv(filePath, muertaVendida);
+                                }
+                                else if(openFileDialog.SafeFileName.Contains(".xlsx")) {
+                                    vacasArchivo = LectorArchivos.VacasEnXlsx(filePath, muertaVendida);
                                 }
                                 else {
-                                    foreach(Vaca vaca in vacasArchivo) {
-                                        vaca.setEstado((Estado)estadoSelectedIndex);
-                                        vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
-                                        vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
-                                    }
-                                    vacasAgregar.AddRange(vacasArchivo);
+                                    vacasArchivo = LectorArchivos.VacasEnXls(filePath, muertaVendida);
                                 }
-                                this.archivosAgregar++;
-                                this.actualizarLblArchivosSubidos();
+                                int cantidadRepetidas = Vaca.EliminarRepetidas(ref vacasArchivo);
+                                if(cantidadRepetidas == -1) return;
+
+                                DialogResult result = MessageBox.Show("Se leyeron: " + (vacasArchivo.Count + cantidadRepetidas) + " animales, de los cuales " + cantidadRepetidas + " repetidas fueron eliminadas, Quedaron: " + vacasArchivo.Count + " ¿Desea Continuar?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if(result == DialogResult.Yes) {
+                                    if(!muertaVendida) {
+                                        foreach(Vaca vaca in vacasArchivo) {
+                                            vaca.setCategoria((Categoria)categoriaSelectedIndex);
+                                            vaca.setProcedencia(procedencia);
+                                            vaca.setEstado((Estado)estadoSelectedIndex);
+                                        }
+                                        vacasAgregar.AddRange(vacasArchivo);
+                                    }
+                                    else {
+                                        foreach(Vaca vaca in vacasArchivo) {
+                                            vaca.setEstado((Estado)estadoSelectedIndex);
+                                            vaca.setCategoria(dictVacas[vaca.getId()].getCategoria());
+                                            vaca.setProcedencia(dictVacas[vaca.getId()].getProcedencia());
+                                        }
+                                        vacasAgregar.AddRange(vacasArchivo);
+                                    }
+                                    this.archivosAgregar++;
+                                    this.actualizarLblArchivosSubidos();
+                                }
                             }
                         }
                     }
+                    else {
+                        MessageBox.Show("Rellene todos los datos de la actualización automática");
+                    }
                 }
                 else {
-                    MessageBox.Show("Rellene todos los datos de la actualización automática");
+                    MessageBox.Show("Rellene los datos del estado");
                 }
             }
-            else {
-                MessageBox.Show("Rellene los datos del estado");
+            catch(Exception ex) {
+                MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

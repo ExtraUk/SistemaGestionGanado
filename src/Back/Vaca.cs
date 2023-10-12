@@ -25,7 +25,6 @@ namespace SistemaGestionGanado.src.Back {
             this.procedencia = proc;
             this.estado = estado;
         }
-
         public Vaca() {
 
         }
@@ -176,6 +175,13 @@ namespace SistemaGestionGanado.src.Back {
             catch(Exception ex) {
                 MessageBox.Show("Ocurrio un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public static void OrdenarListaVacas(ref List<Vaca> desaparecidas) {
+            desaparecidas.Sort((x, y) => {
+                int compararEstados = x.getEstado().CompareTo(y.getEstado());
+                return compararEstados != 0 ? compararEstados : x.getProcedencia().CompareTo(y.getProcedencia());
+            });
         }
     }
 }
